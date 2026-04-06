@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trắc Nghiệm Kinh Tế Chính Trị Mác – Lênin</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --text: #142033;
+      --muted: #6b7280;
+      --border: #d8e0ea;
+      --primary: #2563eb;
+      --primary-2: #1d4ed8;
+      --success: #16a34a;
+      --success-bg: #ecfdf3;
+      --danger: #dc2626;
+      --danger-bg: #fef2f2;
+      --warn: #d97706;
+      --shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.08), transparent 24%),
+        radial-gradient(circle at top right, rgba(22, 163, 74, 0.06), transparent 22%),
+        var(--bg);
+      color: var(--text);
+    }
+    button, input { font: inherit; }
+    .wrap {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+    .shell {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .sidebar {
+      position: sticky;
+      top: 18px;
+      padding: 18px;
+    }
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+    .brand h1 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.2;
+    }
+    .brand p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+    .user-box {
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: linear-gradient(180deg, #fff, #f8fbff);
+      margin-bottom: 14px;
+    }
+    .user-name {
+      font-weight: 700;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .user-meta, .tiny {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .stat {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px;
+      background: #fff;
+    }
+    .stat .label {
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 8px;
+    }
+    .stat .value {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .btn {
+      width: 100%;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      padding: 11px 14px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); border-color: #b6c4d6; }
+    .btn.primary {
+      background: linear-gradient(180deg, var(--primary), var(--primary-2));
+      color: #fff;
+      border-color: transparent;
+    }
+    .btn.ghost {
+      background: #f8fafc;
+    }
+    .btn.active {
+      background: #eaf2ff;
+      border-color: #c7dcff;
+      color: var(--primary-2);
+      font-weight: 700;
+    }
+    .btn-row {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .chapter-list {
+      display: grid;
+      gap: 8px;
+      max-height: 46vh;
+      overflow: auto;
+      padding-right: 4px;
+    }
+    .chapter-list::-webkit-scrollbar { width: 8px; }
+    .chapter-list::-webkit-scrollbar-thumb { background: #d7e0ea; border-radius: 999px; }
+    .main {
+      display: grid;
+      gap: 18px;
+      min-width: 0;
+    }
+    .hero {
+      padding: 18px 20px;
+    }
+    .hero-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .hero h2 {
+      margin: 0 0 8px 0;
+      font-size: 28px;
+      letter-spacing: -0.03em;
+    }
+    .hero p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      max-width: 760px;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .toolbar {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr;
+      padding: 16px 18px;
+    }
+    .tabs {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .content-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+    .content-head h3 {
+      margin: 0;
+      font-size: 18px;
+    }
+    .count-pill {
+      background: #eff6ff;
+      color: var(--primary-2);
+      border: 1px solid #dbeafe;
+      border-radius: 999px;
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .legend {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 6px;
+    }
+    .question-area {
+      display: grid;
+      gap: 14px;
+    }
+    .question-card {
+      padding: 18px;
+    }
+    .q-top {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    .q-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border-radius: 999px;
+      padding: 5px 10px;
+      background: #f8fafc;
+      border: 1px solid var(--border);
+    }
+    .q-title {
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.5;
+    }
+    .formula {
+      padding: 10px 12px;
+      border-left: 4px solid #93c5fd;
+      background: #eff6ff;
+      border-radius: 12px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+    .option {
+      width: 100%;
+      text-align: left;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text);
+      border-radius: 14px;
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: 0.15s ease;
+      line-height: 1.5;
+    }
+    .option:hover {
+      border-color: #b6c4d6;
+      transform: translateY(-1px);
+    }
+    .option.correct {
+      background: var(--success-bg);
+      border-color: #b7ebc6;
+      color: #0f7a36;
+      font-weight: 700;
+    }
+    .option.wrong {
+      background: var(--danger-bg);
+      border-color: #f4b7bd;
+      color: #b42318;
+      font-weight: 700;
+    }
+    .option.chosen {
+      box-shadow: inset 0 0 0 1px rgba(37, 99, 235, 0.18);
+    }
+    .answer-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+      align-items: center;
+    }
+    .explain {
+      display: none;
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      background: #fbfdff;
+      border: 1px solid var(--border);
+      color: #334155;
+      line-height: 1.65;
+      white-space: pre-wrap;
+    }
+    .explain.show { display: block; }
+    .small-btn {
+      width: auto;
+      padding: 9px 12px;
+      border-radius: 12px;
+    }
+    .login-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.46);
+      backdrop-filter: blur(7px);
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      z-index: 50;
+    }
+    .login-card {
+      width: min(100%, 440px);
+      padding: 22px;
+    }
+    .login-card h2 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+    .login-card p {
+      margin: 0 0 16px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .field {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .field label {
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .field input {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      outline: none;
+      background: #fff;
+    }
+    .field input:focus {
+      border-color: #93c5fd;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.10);
+    }
+    .leaderboard {
+      display: grid;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .leader-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+      padding: 11px 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #fff;
+    }
+    .leader-name { font-weight: 700; }
+    .leader-meta { color: var(--muted); font-size: 12px; }
+    .hidden { display: none !important; }
+    .empty {
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed var(--border);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.7);
+    }
+    @media (max-width: 1040px) {
+      .shell { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      .chapter-list { max-height: unset; }
+    }
+    @media (max-width: 640px) {
+      .wrap { padding: 12px; }
+      .hero h2 { font-size: 22px; }
+      .question-card, .hero, .toolbar, .sidebar { padding: 14px; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+      .hero-top { flex-direction: column; }
+      .hero-actions { width: 100%; }
+      .hero-actions .btn { flex: 1; }
+      .content-head { align-items: start; }
+    }
+  </style>
+</head>
+<body>
+  <div id="loginOverlay" class="login-backdrop">
+    <div class="panel login-card">
+      <h2>Đăng nhập để tiếp tục</h2>
+      <p>Nhập họ và tên. Mật khẩu mặc định là <b>1</b>. Tiến độ sẽ được lưu trong máy này.</p>
+      <div class="field">
+        <label for="loginName">Họ và tên</label>
+        <input id="loginName" autocomplete="name" placeholder="Ví dụ: Nguyễn Văn A" />
+      </div>
+      <div class="field">
+        <label for="loginPass">Mật khẩu</label>
+        <input id="loginPass" type="password" placeholder="Nhập 1" />
+      </div>
+      <div class="btn-row">
+        <button class="btn primary" id="loginBtn">Vào học</button>
+      </div>
+      <div class="tiny" style="margin-top:10px;">Mọi dữ liệu chỉ lưu trên trình duyệt hiện tại.</div>
+    </div>
+  </div>
+
+  <div class="wrap hidden" id="appShell">
+    <div class="shell">
+      <aside class="panel sidebar">
+        <div class="brand">
+          <h1>Trắc Nghiệm Kinh Tế Chính Trị Mác – Lênin</h1>
+          <p>Giao diện gọn, lưu tiến độ, trộn câu hỏi và đáp án, hoạt động tốt trên mobile lẫn desktop.</p>
+        </div>
+
+        <div class="user-box">
+          <div class="user-name" id="displayName">-</div>
+          <div class="user-meta">Mật khẩu mặc định: 1</div>
+          <div class="user-meta">Streak: <b id="streakValue">0</b> ngày</div>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="label">Đã làm</div>
+            <div class="value" id="statDone">0</div>
+          </div>
+          <div class="stat">
+            <div class="label">Đúng</div>
+            <div class="value" id="statCorrect">0</div>
+          </div>
+          <div class="stat">
+            <div class="label">Tỷ lệ</div>
+            <div class="value" id="statRate">0%</div>
+          </div>
+          <div class="stat">
+            <div class="label">Leaderboard</div>
+            <div class="value" id="statRank">-</div>
+          </div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn ghost" id="modePractice">Chế độ luyện tập</button>
+          <button class="btn ghost" id="modeAnswers">Xem đáp án</button>
+          <button class="btn ghost" id="resetSession">Trộn lại phiên này</button>
+          <button class="btn" id="logoutBtn">Đổi tài khoản</button>
+        </div>
+
+        <div style="margin-top:16px; font-weight:700;">Bảng xếp hạng </div>
+        <div class="leaderboard" id="leaderboard"></div>
+      </aside>
+
+      <main class="main">
+        <section class="panel hero">
+          <div class="hero-top">
+            <div>
+              <h2>Học theo phần, theo chương, có lưu tiến độ</h2>
+              <p>nguồn: kinh tế chính trị maclenin trường đại học công đoàn</p>
+            </div>
+            <div class="hero-actions">
+              <button class="btn primary small-btn" id="jumpTop">Lên đầu</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel toolbar">
+          <div class="tabs" id="partTabs"></div>
+          <div class="content-head">
+            <div>
+              <h3 id="partTitle">-</h3>
+              <div class="legend" id="legendText">Chọn một phần để bắt đầu.</div>
+            </div>
+            <div class="count-pill" id="questionCount">0 câu</div>
+          </div>
+          <div class="chapter-list" id="chapterList"></div>
+        </section>
+
+        <section class="panel hero">
+          <div class="content-head">
+            <div>
+              <h3>Tiến độ trong phần hiện tại</h3>
+              <div class="legend">Tính theo các câu bạn đã chọn đáp án trên trình duyệt này.</div>
+            </div>
+            <div class="count-pill" id="progressSummary">0 / 0</div>
+          </div>
+          <div class="stat-grid" style="margin-top:12px;">
+            <div class="stat">
+              <div class="label">Đã làm trong phần</div>
+              <div class="value" id="partDone">0</div>
+            </div>
+            <div class="stat">
+              <div class="label">Đúng trong phần</div>
+              <div class="value" id="partCorrect">0</div>
+            </div>
+            <div class="stat">
+              <div class="label">Chưa làm</div>
+              <div class="value" id="partLeft">0</div>
+            </div>
+            <div class="stat">
+              <div class="label">Phần đang xem</div>
+              <div class="value" id="currentMode">Luyện tập</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="question-area" id="questionArea"></section>
+      </main>
+    </div>
+  </div>
+
+  <script id="quiz-data" type="application/json">{"parts": [{"id": "part1", "title": "Phần 1: Chương 1–6 ", "chapters": [{"id": 1, "title": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin", "questions": [{"q": "Thuật ngữ 'kinh tế chính trị' (political economy) xuất hiện lần đầu tiên vào năm nào?", "o": ["1600", "1615", "1650", "1776"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Thuật ngữ 'kinh tế chính trị' được xuất hiện trong tác phẩm nào?", "o": ["Quốc phú luận", "Chuyên luận về kinh tế chính trị", "Bàn về tiền tệ", "Lý luận về giá trị"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Tác giả của tác phẩm khai sinh thuật ngữ 'kinh tế chính trị' là ai?", "o": ["A. Smith", "D. Ricardo", "A. Montchretien", "W. Petty"], "a": 2, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Chủ nghĩa trọng thương nhấn mạnh vai trò của lĩnh vực nào?", "o": ["Nông nghiệp", "Công nghiệp", "Ngoại thương", "Tài chính ngân hàng"], "a": 2, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Chủ nghĩa trọng nông nhấn mạnh vai trò của lĩnh vực nào?", "o": ["Ngoại thương", "Sản xuất nông nghiệp", "Thương mại nội địa", "Công nghiệp chế biến"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Chủ nghĩa trọng thương thuộc thời kỳ nào trong lịch sử kinh tế chính trị?", "o": ["Thế kỷ XV đến cuối thế kỷ XVII", "Giữa thế kỷ XVII đến nửa đầu thế kỷ XVIII", "Giữa thế kỷ XVII đến cuối thế kỷ XVIII", "Thế kỷ XIX đến XX"], "a": 0, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Chủ nghĩa trọng nông phát triển vào thời kỳ nào?", "o": ["Thế kỷ XV đến cuối thế kỷ XVII", "Giữa thế kỷ XVII đến nửa đầu thế kỷ XVIII", "Giữa thế kỷ XVIII đến cuối thế kỷ XIX", "Đầu thế kỷ XIX"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Kinh tế chính trị tư sản cổ điển Anh thuộc thời kỳ nào?", "o": ["Thế kỷ XV đến cuối thế kỷ XVII", "Giữa thế kỷ XVII đến nửa đầu thế kỷ XVIII", "Giữa thế kỷ XVII đến cuối thế kỷ XVIII", "Đầu thế kỷ XIX"], "a": 2, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Ai là đại biểu tiêu biểu của Kinh tế chính trị tư sản cổ điển Anh?", "o": ["F. Quesney và A. Turgot", "W. Petty, A. Smith và D. Ricardo", "Thomas Mun và A. Serra", "Boisguillebert và A. Turgot"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "F. Quesney là đại biểu tiêu biểu của trường phái nào?", "o": ["Chủ nghĩa trọng thương", "Chủ nghĩa trọng nông", "Kinh tế chính trị tư sản cổ điển Anh", "Kinh tế chính trị Mác - Lênin"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Ai là đại biểu của Chủ nghĩa trọng thương người Anh?", "o": ["F. Quesney", "A. Turgot", "Thomas Mun", "D. Ricardo"], "a": 2, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Boisguillebert là đại biểu của trường phái kinh tế nào?", "o": ["Chủ nghĩa trọng thương", "Chủ nghĩa trọng nông", "Kinh tế chính trị tư sản cổ điển", "Kinh tế học hiện đại"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "A. Serra là đại biểu của trường phái nào và thuộc quốc gia nào?", "o": ["Chủ nghĩa trọng thương - Italia", "Chủ nghĩa trọng nông - Pháp", "Kinh tế cổ điển - Anh", "Chủ nghĩa trọng thương - Anh"], "a": 0, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Kinh tế chính trị tư sản cổ điển Anh đã làm được điều gì nổi bật?", "o": ["Nhấn mạnh vai trò ngoại thương", "Trình bày hệ thống các phạm trù kinh tế trong nền kinh tế thị trường", "Phân tích vai trò sản xuất nông nghiệp", "Phát hiện quy luật giá trị thặng dư"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Quá trình phát triển của khoa học kinh tế chính trị được khái quát qua bao nhiêu kỳ lịch sử lớn?", "o": ["Một", "Hai", "Ba", "Bốn"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Từ thời cổ đại đến cuối thế kỷ XVIII có bao nhiêu thời kỳ phát triển của kinh tế chính trị?", "o": ["2", "3", "4", "5"], "a": 2, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Thời kỳ tư tưởng kinh tế cổ đại đến thế kỷ thứ XV có đặc điểm gì?", "o": ["Xuất hiện lý thuyết kinh tế hoàn chỉnh", "Chưa xuất hiện lý thuyết kinh tế hoàn chỉnh, chỉ có một số ít tư tưởng kinh tế", "Chủ nghĩa trọng thương thống trị", "Kinh tế thị trường phát triển mạnh"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Đối tượng nghiên cứu của kinh tế chính trị Mác - Lênin là gì?", "o": ["Lực lượng sản xuất và kiến trúc thượng tầng", "Các quan hệ sản xuất và trao đổi trong hệ thống các quan hệ kinh tế", "Chính sách tiền tệ và tài khóa", "Hoạt động kinh doanh của doanh nghiệp"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Mục đích nghiên cứu của kinh tế chính trị Mác - Lênin là gì?", "o": ["Tối đa hóa lợi nhuận", "Phát hiện các quy luật chi phối sự vận động của nền sản xuất xã hội", "Xây dựng chính sách thuế", "Nghiên cứu hành vi người tiêu dùng"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Phương pháp nghiên cứu chủ yếu của kinh tế chính trị Mác - Lênin là gì?", "o": ["Phân tích thống kê và kinh tế lượng", "Duy vật biện chứng và duy vật lịch sử", "Thực nghiệm và quan sát", "Quy nạp và diễn dịch đơn thuần"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Kinh tế chính trị Mác - Lênin sử dụng kết hợp những phương pháp nào ngoài phương pháp chủ yếu?", "o": ["Chỉ dùng phương pháp logic", "Logic, phân tích - tổng hợp, quy nạp - diễn dịch, lịch sử - logic, trừu tượng hóa, hệ thống hóa", "Chỉ dùng phương pháp thống kê", "Chỉ dùng phương pháp so sánh"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Kinh tế chính trị Mác - Lênin có bao nhiêu chức năng được đề cập trong tài liệu?", "o": ["2", "3", "4", "5"], "a": 2, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Chức năng nhận thức của kinh tế chính trị Mác - Lênin giúp nhận thức điều gì?", "o": ["Quy luật pháp lý", "Sự vận động của các quan hệ giữa người với người trong sản xuất và trao đổi", "Quy luật tự nhiên", "Tâm lý học xã hội"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Chức năng thực tiễn của kinh tế chính trị Mác - Lênin giúp ích cho đối tượng nào?", "o": ["Chỉ nhà nước", "Chỉ doanh nghiệp", "Người lao động, doanh nghiệp và nhà nước", "Chỉ người lao động"], "a": 2, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Chức năng tư tưởng của kinh tế chính trị Mác - Lênin hướng tới mục tiêu gì?", "o": ["Tối đa hóa tăng trưởng kinh tế", "Xây dựng nền tảng tư tưởng cộng sản, giải phóng con người khỏi áp bức bất công", "Bảo vệ lợi ích giai cấp tư sản", "Phát triển kinh tế thị trường"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Chức năng phương pháp luận của kinh tế chính trị Mác - Lênin có vai trò như thế nào?", "o": ["Thay thế các khoa học kinh tế khác", "Cung cấp nền tảng lý luận cho các khoa học kinh tế khác", "Phủ nhận các phương pháp kinh tế hiện đại", "Chỉ áp dụng trong nghiên cứu lý thuyết"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Kinh tế chính trị là môn khoa học nghiên cứu các quan hệ kinh tế nhằm mục đích gì?", "o": ["Tính toán GDP quốc gia", "Tìm ra các quy luật chi phối sự vận động của các hiện tượng và quá trình hoạt động kinh tế", "Quản lý doanh nghiệp", "Dự báo thị trường chứng khoán"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Theo tài liệu, sau thế kỷ XVIII lý luận kinh tế chính trị chia thành bao nhiêu dòng chính?", "o": ["Một", "Hai", "Ba", "Bốn"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Kinh tế chính trị Mác - Lênin cung cấp gì để làm cơ sở lý luận nhận thức các hiện tượng kinh tế?", "o": ["Số liệu thống kê", "Các phạm trù kinh tế cơ bản và quy luật kinh tế của nền kinh tế thị trường", "Chính sách vĩ mô", "Mô hình toán học"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Theo tài liệu, chức năng nhận thức giúp nhận thức được điều gì ở 'tầng sâu hơn'?", "o": ["Giá cả hàng hóa", "Các quy luật và tính quy luật", "Cơ cấu tổ chức nhà nước", "Hành vi doanh nghiệp"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "W. Petty thuộc trường phái kinh tế nào?", "o": ["Chủ nghĩa trọng thương", "Chủ nghĩa trọng nông", "Kinh tế chính trị tư sản cổ điển Anh", "Kinh tế chính trị Mác - Lênin"], "a": 2, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "A. Turgot là đại biểu của trường phái nào?", "o": ["Chủ nghĩa trọng thương", "Chủ nghĩa trọng nông", "Kinh tế chính trị tư sản cổ điển", "Kinh tế học vĩ mô hiện đại"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Starford là đại biểu của trường phái nào và thuộc quốc gia nào?", "o": ["Chủ nghĩa trọng nông - Pháp", "Kinh tế cổ điển - Anh", "Chủ nghĩa trọng thương - Anh", "Chủ nghĩa trọng thương - Italia"], "a": 2, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "A. Montchretien thuộc quốc gia nào?", "o": ["Anh", "Italia", "Đức", "Pháp"], "a": 3, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Chủ nghĩa trọng thương đánh dấu bước tiến như thế nào so với thời cổ, trung đại?", "o": ["Là một bước tiến về lý luận kinh tế chính trị", "Không có bước tiến nào", "Là bước thụt lùi", "Chỉ là sự lặp lại tư tưởng cũ"], "a": 0, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Kinh tế chính trị Mác - Lênin nghiên cứu các quan hệ kinh tế tương ứng với điều gì?", "o": ["Chính sách của từng quốc gia", "Những trình độ phát triển nhất định của nền sản xuất xã hội", "Từng giai đoạn lịch sử cụ thể của châu Âu", "Nhu cầu thị trường hiện tại"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Chức năng thực tiễn của kinh tế chính trị giúp tạo dựng điều gì cho sinh viên?", "o": ["Kiến thức lập trình", "Cơ sở khoa học lý luận để nhận diện và định vị vai trò, trách nhiệm của mình", "Kỹ năng quản lý tài chính cá nhân", "Khả năng đầu tư chứng khoán"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "D. Ricardo thuộc trường phái kinh tế nào?", "o": ["Chủ nghĩa trọng thương", "Chủ nghĩa trọng nông", "Kinh tế chính trị tư sản cổ điển Anh", "Kinh tế học Keynes"], "a": 2, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Kinh tế chính trị Mác - Lênin giúp mở rộng điều gì của chủ thể nghiên cứu?", "o": ["Quy mở vốn kinh doanh", "Nhận thức và tư duy về các quan hệ kinh tế và xu hướng phát triển kinh tế xã hội", "Mạng lưới quan hệ xã hội", "Khả năng ứng dụng công nghệ"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Theo tài liệu, các hiện tượng kinh tế tưởng hỗn độn trên bề mặt xã hội thực chất đều tuân thủ điều gì?", "o": ["Ý chí của nhà nước", "Các quy luật nhất định", "Nhu cầu thị trường", "Quan hệ cung - cầu đơn thuần"], "a": 1, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}, {"q": "Chức năng tư tưởng của kinh tế chính trị Mác - Lênin xây dựng điều gì?", "o": ["Thế giới quan khoa học và nền tảng tư tưởng cộng sản", "Hệ thống pháp luật kinh tế", "Cơ chế thị trường tự do", "Mô hình quản trị doanh nghiệp"], "a": 0, "cat": "Chương 1: Khái quát về Kinh tế chính trị Mác – Lênin"}]}, {"id": 2, "title": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động", "questions": [{"q": "Sản xuất hàng hóa là gì?", "o": ["Tổ chức sản xuất nhằm mục đích tự tiêu dùng", "Kiểu tổ chức hoạt động kinh tế mà người sản xuất ra sản phẩm nhằm mục đích trao đổi, mua bán", "Hoạt động sản xuất theo kế hoạch nhà nước", "Sản xuất phục vụ nhu cầu nội bộ tập thể"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Sản xuất hàng hóa có xuất hiện đồng thời với sự xuất hiện của xã hội loài người không?", "o": ["Có, xuất hiện cùng lúc với xã hội loài người", "Không, không xuất hiện đồng thời", "Chỉ xuất hiện từ xã hội phong kiến", "Chỉ xuất hiện từ xã hội tư bản chủ nghĩa"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Nền kinh tế hàng hóa hình thành và phát triển khi có bao nhiêu điều kiện?", "o": ["1 điều kiện", "2 điều kiện", "3 điều kiện", "4 điều kiện"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Phân công lao động xã hội là gì?", "o": ["Phân chia lao động theo giới tính và độ tuổi", "Sự phân chia lao động trong xã hội thành các ngành, lĩnh vực sản xuất khác nhau, tạo sự chuyên môn hóa", "Phân chia lao động giữa các vùng miền địa lý", "Phân công do nhà nước quy định"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Vai trò của phân công lao động xã hội đối với sản xuất hàng hóa là gì?", "o": ["Giúp mỗi người tự sản xuất đủ mọi thứ mình cần", "Buộc những người sản xuất phải trao đổi sản phẩm với nhau để thỏa mãn nhu cầu", "Loại bỏ sự phụ thuộc lẫn nhau giữa các chủ thể", "Thay thế hoàn toàn trao đổi hàng hóa"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Điều kiện để có sự tách biệt về mặt kinh tế giữa các chủ thể sản xuất là gì?", "o": ["Có sự khác biệt về trình độ kỹ thuật", "Dựa trên sự tách biệt về sở hữu (chế độ tư hữu hoặc nhiều hình thức sở hữu)", "Có sự khác biệt về địa lý", "Có hệ thống pháp luật hoàn chỉnh"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Sự tách biệt về mặt kinh tế giữa các chủ thể sản xuất dẫn đến điều gì?", "o": ["Người sản xuất hợp tác tự nguyện không cần trao đổi", "Giữa người sản xuất có sự tách biệt về lợi ích; muốn tiêu dùng sản phẩm của nhau phải trao đổi, mua bán", "Nhà nước phân phối sản phẩm trực tiếp", "Xóa bỏ phân công lao động xã hội"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Hai điều kiện của sản xuất hàng hóa có tính chất gì?", "o": ["Chỉ cần một trong hai", "Là hai điều kiện cần và đủ", "Là điều kiện mang tính lịch sử tùy chọn", "Chỉ áp dụng ở kinh tế tư bản"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Hàng hóa được định nghĩa như thế nào?", "o": ["Bất kỳ vật phẩm nào con người tạo ra", "Sản phẩm của lao động, thỏa mãn nhu cầu nào đó của con người, thông qua trao đổi, mua bán", "Chỉ những sản phẩm vật chất hữu hình", "Chỉ những sản phẩm do máy móc sản xuất"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Hàng hóa có thể tồn tại ở những dạng nào?", "o": ["Chỉ dạng vật thể hữu hình", "Chỉ dạng phi vật thể", "Cả dạng vật thể lẫn phi vật thể", "Chỉ dạng dịch vụ"], "a": 2, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Giá trị sử dụng của hàng hóa là gì?", "o": ["Lao động xã hội kết tinh trong hàng hóa", "Công dụng của sản phẩm, có thể thỏa mãn nhu cầu nào đó của con người", "Giá tiền của hàng hóa trên thị trường", "Thời gian cần thiết để sản xuất hàng hóa"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Giá trị sử dụng được thực hiện khi nào?", "o": ["Khi hàng hóa được sản xuất ra", "Trong việc sử dụng hay tiêu dùng", "Khi hàng hóa được trao đổi", "Khi hàng hóa được định giá"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Khi nền sản xuất phát triển và khoa học công nghệ hiện đại hơn, điều gì xảy ra với giá trị sử dụng?", "o": ["Giá trị sử dụng giảm đi", "Giá trị sử dụng không thay đổi", "Con người phát hiện thêm nhiều giá trị sử dụng mới", "Giá trị sử dụng bị thay thế hoàn toàn"], "a": 2, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Giá trị của hàng hóa là gì?", "o": ["Giá tiền bán trên thị trường", "Lao động xã hội của người sản xuất hàng hóa kết tinh trong hàng hóa", "Công dụng thực tế của hàng hóa", "Số lượng nguyên liệu để tạo ra hàng hóa"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Giá trị hàng hóa là phạm trù mang tính gì?", "o": ["Tính vĩnh viễn, bất biến", "Tính lịch sử", "Tính tự nhiên", "Tính kỹ thuật"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Mối quan hệ giữa giá trị và giá trị trao đổi là gì?", "o": ["Giá trị trao đổi là nội dung; giá trị là hình thức", "Giá trị là nội dung, là cơ sở; giá trị trao đổi là hình thức biểu hiện ra bên ngoài", "Hai khái niệm hoàn toàn độc lập nhau", "Giá trị trao đổi luôn bằng giá trị"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Tính hai mặt của lao động sản xuất hàng hóa gồm những mặt nào?", "o": ["Lao động giản đơn và lao động phức tạp", "Lao động cụ thể và lao động trừu tượng", "Lao động thủ công và lao động cơ giới", "Lao động trực tiếp và lao động gián tiếp"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Lao động cụ thể là gì?", "o": ["Sự hao phí sức lao động nói chung về cơ bắp, thần kinh, trí óc", "Lao động có ích dưới một hình thức cụ thể của những nghề nghiệp chuyên môn nhất định", "Lao động trừu tượng hóa khỏi hình thức chuyên môn", "Lao động không có chuyên môn cụ thể"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Lao động cụ thể tạo ra cái gì?", "o": ["Giá trị của hàng hóa", "Giá trị thặng dư", "Giá trị sử dụng của hàng hóa", "Lợi nhuận doanh nghiệp"], "a": 2, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Lao động trừu tượng là gì?", "o": ["Lao động chuyên môn với hình thức cụ thể rõ ràng", "Lao động xã hội của người sản xuất không kể hình thức cụ thể; sự hao phí sức lao động nói chung về cơ bắp, thần kinh, trí óc", "Lao động thủ công truyền thống", "Lao động trong các ngành công nghiệp nặng"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Lao động trừu tượng tạo ra cái gì?", "o": ["Giá trị sử dụng", "Giá trị trao đổi bề ngoài", "Giá trị của hàng hóa", "Lợi nhuận bình quân ngành"], "a": 2, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Mâu thuẫn cơ bản của sản xuất hàng hóa là gì?", "o": ["Mâu thuẫn giữa cung và cầu thị trường", "Mâu thuẫn giữa tính tư nhân (lao động cụ thể) và tính xã hội (lao động trừu tượng)", "Mâu thuẫn giữa người mua và người bán", "Mâu thuẫn giữa nhà nước và doanh nghiệp"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Mâu thuẫn giữa tính tư nhân và tính xã hội tạo ra điều gì?", "o": ["Động lực phát triển kinh tế bền vững", "Nguy cơ khủng hoảng tiềm ẩn", "Sự phân công lao động ngày càng sâu sắc", "Lợi nhuận bình quân giữa các ngành"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Lượng giá trị hàng hóa được đo bằng gì?", "o": ["Giá cả thị trường tại thời điểm bán", "Thời gian lao động xã hội cần thiết", "Chi phí nguyên vật liệu đầu vào", "Mức lợi nhuận bình quân ngành"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Thời gian lao động xã hội cần thiết là gì?", "o": ["Thời gian nhanh nhất để sản xuất một đơn vị hàng hóa", "Thời gian sản xuất trung bình trong điều kiện bình thường với trình độ thành thạo và cường độ lao động trung bình", "Thời gian lâu nhất để sản xuất một đơn vị hàng hóa", "Thời gian do nhà nước quy định"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Lượng giá trị hàng hóa bao gồm những thành phần nào?", "o": ["Chỉ hao phí lao động sống", "Hao phí lao động quá khứ (vật tư, nguyên liệu) cộng hao phí lao động mới kết tinh", "Chỉ chi phí nguyên vật liệu", "Lợi nhuận cộng chi phí sản xuất"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Năng suất lao động là gì?", "o": ["Tổng số giờ lao động trong ngày", "Năng lực sản xuất của người lao động", "Mức độ khẩn trương của hoạt động lao động", "Tổng sản phẩm nhân với giá cả"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Năng suất lao động có quan hệ như thế nào với lượng giá trị trong một đơn vị hàng hóa?", "o": ["Tỷ lệ thuận — năng suất tăng thì giá trị đơn vị hàng hóa tăng", "Tỷ lệ nghịch — năng suất tăng thì giá trị đơn vị hàng hóa giảm", "Không có mối quan hệ", "Tỷ lệ thuận trong ngắn hạn, nghịch trong dài hạn"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Cường độ lao động là gì?", "o": ["Năng lực sản xuất của người lao động", "Mức độ khẩn trương của hoạt động lao động", "Trình độ kỹ thuật của người lao động", "Số giờ làm việc trong ngày"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Khi tăng cường độ lao động, điều gì xảy ra?", "o": ["Tổng sản phẩm tăng và lượng giá trị đơn vị hàng hóa tăng", "Tổng số sản phẩm tăng nhưng lượng giá trị trong một đơn vị hàng hóa không thay đổi", "Tổng sản phẩm không đổi, giá trị đơn vị giảm", "Cả tổng sản phẩm lẫn giá trị đơn vị đều không thay đổi"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}, {"q": "Lao động phức tạp khác lao động giản đơn như thế nào?", "o": ["Lao động phức tạp tạo ra ít giá trị hơn trong cùng thời gian", "Trong cùng một đơn vị thời gian, lao động phức tạp tạo ra nhiều giá trị hơn lao động giản đơn", "Hai loại lao động tạo ra lượng giá trị như nhau", "Lao động giản đơn luôn tạo ra nhiều giá trị hơn"], "a": 1, "cat": "Chương 2: Sản xuất hàng hóa, hàng hóa và lao động"}]}, {"id": 3, "title": "Chương 3: Tiền tệ, quy luật giá trị và thị trường", "questions": [{"q": "Theo quy luật lưu thông tiền tệ, công thức xác định lượng tiền cần thiết cho lưu thông là gì?", "formula": "M = ?", "o": ["M = P + Q − V", "M = (P · Q) / V", "M = V / (P · Q)", "M = P · Q · V"], "a": 1, "ex": "M là lượng tiền cần thiết; P là mức giá; Q là khối lượng hàng hóa; V là tốc độ lưu thông tiền tệ. Lượng tiền cần thiết tỷ lệ thuận với P và Q, tỷ lệ nghịch với V.", "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Trong công thức M = (P·Q)/V, nếu tốc độ lưu thông tiền tệ (V) tăng lên trong khi P và Q không đổi, lượng tiền cần thiết (M) sẽ thay đổi như thế nào?", "formula": "M = (P · Q) / V", "o": ["M tăng lên", "M không thay đổi", "M giảm xuống", "M bằng 0"], "a": 2, "ex": "V là mẫu số nên V tăng → M giảm. Tiền lưu thông nhanh hơn thì cần ít tiền hơn để phục vụ cùng một khối lượng hàng hóa.", "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Trong công thức M = (P·Q)/V, các ký hiệu P, Q, V lần lượt là gì?", "formula": "M = (P · Q) / V", "o": ["P: lợi nhuận; Q: chất lượng hàng hóa; V: vốn lưu thông", "P: mức giá; Q: khối lượng hàng hóa; V: tốc độ lưu thông tiền tệ", "P: phí sản xuất; Q: số lượng doanh nghiệp; V: vòng quay vốn", "P: giá trị thặng dư; Q: quy mô thị trường; V: vận tốc cung tiền"], "a": 1, "ex": "Đây là công thức quy luật lưu thông tiền tệ của C. Mác: M là lượng tiền cần thiết, P là mức giá, Q là khối lượng hàng hóa đưa vào lưu thông, V là tốc độ lưu thông của tiền tệ.", "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Tiền tệ hình thành qua các hình thái giá trị theo thứ tự nào?", "o": ["Giản đơn → Chung → Đầy đủ → Tiền tệ", "Giản đơn → Đầy đủ → Chung → Tiền tệ", "Đầy đủ → Giản đơn → Chung → Tiền tệ", "Chung → Giản đơn → Đầy đủ → Tiền tệ"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Bản chất của tiền là gì?", "o": ["Công cụ quản lý kinh tế do nhà nước tạo ra", "Một loại hàng hóa đặc biệt, đóng vai trò vật ngang giá chung cho thế giới hàng hóa", "Kim loại quý hiếm tự nhiên", "Ký hiệu giá trị do thỏa thuận quốc tế"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Chức năng phương tiện lưu thông của tiền là gì?", "o": ["Dùng để tích lũy tài sản dài hạn", "Làm môi giới cho quá trình trao đổi hàng hóa (H - T - H)", "Dùng để thanh toán quốc tế", "Dùng để đo lường giá trị hàng hóa"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Chức năng phương tiện cất trữ yêu cầu tiền phải như thế nào?", "o": ["Có thể là bất kỳ loại tiền nào", "Phải là tiền vàng, bạc — tiền đủ giá trị", "Chỉ cần là tiền giấy do nhà nước phát hành", "Là tiền điện tử"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Chức năng phương tiện thanh toán của tiền dùng để làm gì?", "o": ["Làm môi giới trao đổi trực tiếp", "Trả nợ, nộp thuế, trả tiền mua chịu hàng hóa", "Tích lũy tài sản dài hạn", "Thanh toán quốc tế giữa các nước"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Giá cả hàng hóa là gì?", "o": ["Lượng lao động kết tinh trong hàng hóa", "Biểu hiện bằng tiền của giá trị hàng hóa", "Mức lợi nhuận của doanh nghiệp", "Chi phí sản xuất cộng thuế"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Nội dung của quy luật giá trị là gì?", "o": ["Giá cả do nhà nước quy định", "Sản xuất và trao đổi hàng hóa phải dựa trên cơ sở hao phí lao động xã hội cần thiết", "Giá cả luôn bằng giá trị", "Lợi nhuận là mục tiêu duy nhất của sản xuất"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Theo quy luật cung - cầu, khi cung nhỏ hơn cầu thì giá cả sẽ như thế nào?", "o": ["Giá cả thấp hơn giá trị", "Giá cả bằng giá trị", "Giá cả cao hơn giá trị", "Giá cả không thay đổi"], "a": 2, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Khi cung bằng cầu, giá cả và giá trị có quan hệ như thế nào?", "o": ["Giá cả cao hơn giá trị", "Giá cả thấp hơn giá trị", "Giá cả bằng giá trị", "Không xác định được"], "a": 2, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Công thức quy luật lưu thông tiền tệ M = P×Q/V, trong đó V là gì?", "o": ["Mức giá cả hàng hóa", "Khối lượng hàng hóa lưu thông", "Tốc độ lưu thông tiền tệ", "Lượng tiền cần thiết"], "a": 2, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Cạnh tranh nội bộ ngành hình thành điều gì?", "o": ["Lợi nhuận bình quân giữa các ngành", "Giá trị thị trường", "Tốc độ lưu thông tiền tệ", "Quan hệ cung - cầu quốc tế"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Cạnh tranh giữa các ngành hình thành điều gì?", "o": ["Giá trị thị trường", "Lợi nhuận bình quân", "Mức cầu hàng hóa", "Tỷ giá hối đoái"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Vai trò nào sau đây KHÔNG phải vai trò của thị trường theo tài liệu?", "o": ["Thực hiện giá trị hàng hóa", "Kích thích sự sáng tạo và phân bổ nguồn lực hiệu quả", "Gắn kết nền kinh tế thành một chỉnh thể", "Thay thế hoàn toàn vai trò của nhà nước"], "a": 3, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Sức mua của người tiêu dùng có vai trò gì?", "o": ["Yếu tố phụ, ít ảnh hưởng đến sản xuất", "Yếu tố quyết định sự thành bại của người sản xuất", "Chỉ ảnh hưởng đến phân phối, không ảnh hưởng sản xuất", "Không liên quan đến quy luật cung cầu"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Nhu cầu đa dạng của người tiêu dùng có vai trò gì với sản xuất?", "o": ["Gây khó khăn cho sản xuất", "Là động lực quan trọng của sự phát triển sản xuất, ảnh hưởng trực tiếp tới sản xuất", "Không có ảnh hưởng đến sản xuất", "Làm giảm hiệu quả phân công lao động"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Tại sao xuất hiện các chủ thể trung gian trong thị trường?", "o": ["Do nhà nước quy định bắt buộc", "Do sự tách biệt tương đối giữa sản xuất và trao đổi ngày càng sâu sắc dưới tác động của phân công lao động xã hội", "Do người tiêu dùng yêu cầu", "Do cạnh tranh giữa các doanh nghiệp"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Đâu là vai trò của các chủ thể trung gian trong thị trường?", "o": ["Thay thế vai trò của nhà sản xuất", "Kết nối thông tin mua bán, làm nền kinh tế linh hoạt, tăng cơ hội thực hiện giá trị hàng hóa", "Kiểm soát giá cả thị trường", "Phân phối lợi nhuận giữa các ngành"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Đâu là loại chủ thể trung gian được đề cập trong tài liệu?", "o": ["Trung gian môi giới thuế", "Trung gian thương nhân, môi giới chứng khoán, môi giới nhà đất, môi giới khoa học công nghệ", "Trung gian ngân hàng trung ương", "Trung gian kiểm soát giá cả"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Vai trò kinh tế của Nhà nước trong nền kinh tế thị trường gồm gì?", "o": ["Chỉ thu thuế và phân phối lại", "Quản lý nhà nước về kinh tế và thực hiện các biện pháp khắc phục khuyết tật của thị trường", "Trực tiếp điều hành các doanh nghiệp", "Thay thế hoàn toàn cơ chế thị trường"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}, {"q": "Dịch vụ khác hàng hóa thông thường ở điểm nào?", "o": ["Dịch vụ có thể cất trữ dễ dàng", "Dịch vụ là hàng hóa vô hình, không thể cất trữ; sản xuất và tiêu dùng diễn ra đồng thời", "Dịch vụ không có giá trị sử dụng", "Dịch vụ không phải là hàng hóa"], "a": 1, "cat": "Chương 3: Tiền tệ, quy luật giá trị và thị trường"}]}, {"id": 4, "title": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)", "questions": [{"q": "Độc quyền được định nghĩa là gì?", "o": ["Một doanh nghiệp duy nhất kiểm soát toàn bộ thị trường quốc gia", "Sự liên minh giữa các doanh nghiệp lớn, có khả năng thâu tóm sản xuất và tiêu thụ, định ra giá cả độc quyền nhằm thu lợi nhuận độc quyền cao", "Nhà nước nắm toàn bộ quyền sản xuất và phân phối hàng hóa", "Sự cạnh tranh gay gắt giữa các doanh nghiệp lớn trên thị trường"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Nguyên nhân nào sau đây KHÔNG phải nguyên nhân hình thành độc quyền?", "o": ["Sự phát triển của lực lượng sản xuất", "Do cạnh tranh", "Do khủng hoảng và sự phát triển của hệ thống tín dụng", "Do nhà nước ban hành lệnh cấm cạnh tranh"], "a": 3, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Giá cả độc quyền là gì?", "o": ["Giá do nhà nước quy định để bình ổn thị trường", "Giá cả do các tổ chức độc quyền áp đặt trong mua và bán hàng hóa", "Giá hình thành từ quan hệ cung – cầu thị trường tự do", "Giá cả được thống nhất giữa các doanh nghiệp vừa và nhỏ"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Giá cả độc quyền bao gồm những hình thức nào?", "o": ["Giá bán thấp và giá mua cao", "Giá bán cao khi bán và giá mua thấp khi mua", "Chỉ có giá bán cao", "Giá bán và giá mua đều bằng nhau"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Độc quyền nhà nước là gì?", "o": ["Kiểu độc quyền trong đó nhà nước nắm giữ vị thế độc quyền ở những lĩnh vực then chốt nhằm tạo ra sức mạnh vật chất cho sự ổn định của chế độ", "Nhà nước sở hữu toàn bộ tư liệu sản xuất trong nền kinh tế", "Các tập đoàn tư nhân nắm quyền kiểm soát nhà nước", "Nhà nước cấm mọi hoạt động của doanh nghiệp tư nhân"], "a": 0, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Theo tài liệu, có bao nhiêu nguyên nhân hình thành độc quyền nhà nước trong nền kinh tế thị trường tư bản chủ nghĩa?", "o": ["Hai nguyên nhân", "Ba nguyên nhân", "Bốn nguyên nhân", "Năm nguyên nhân"], "a": 2, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Bản chất của độc quyền nhà nước trong chủ nghĩa tư bản là gì?", "o": ["Phục vụ lợi ích toàn dân, xóa bỏ bóc lột", "Hình thành nhằm phục vụ lợi ích của các tổ chức độc quyền tư nhân và tiếp tục duy trì, phát triển chủ nghĩa tư bản", "Thay thế hoàn toàn cơ chế thị trường bằng kế hoạch hóa tập trung", "Xóa bỏ mâu thuẫn giai cấp trong xã hội tư bản"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Độc quyền nhà nước trong chủ nghĩa tư bản là sự thống nhất của bao nhiêu quá trình gắn bó chặt chẽ với nhau?", "o": ["Hai quá trình", "Ba quá trình", "Bốn quá trình", "Năm quá trình"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Tác động tích cực của độc quyền gồm những điểm nào?", "o": ["Cạnh tranh hoàn hảo, giá rẻ hơn cho người tiêu dùng", "Tạo khả năng nghiên cứu khoa học kỹ thuật; tăng năng suất lao động; tạo sức mạnh kinh tế thúc đẩy nền kinh tế phát triển theo hướng sản xuất lớn hiện đại", "Xóa bỏ sự phân hóa giàu nghèo trong xã hội", "Tạo điều kiện cho các doanh nghiệp nhỏ phát triển"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Tác động tiêu cực của độc quyền là gì?", "o": ["Thúc đẩy tiến bộ kỹ thuật và cạnh tranh hoàn hảo", "Cạnh tranh không hoàn hảo gây thiệt hại cho người tiêu dùng; kìm hãm tiến bộ kỹ thuật; làm tăng phân hóa giàu nghèo", "Giúp phân phối thu nhập công bằng hơn", "Giảm quyền lực của nhà nước trong nền kinh tế"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Khi độc quyền xuất hiện, tình trạng cạnh tranh thay đổi như thế nào?", "o": ["Cạnh tranh bị thủ tiêu hoàn toàn", "Cạnh tranh không còn tồn tại trong nền kinh tế", "Độc quyền không thủ tiêu cạnh tranh mà còn làm cho cạnh tranh trở nên đa dạng, gay gắt hơn", "Cạnh tranh chỉ diễn ra giữa các doanh nghiệp nhỏ và vừa"], "a": 2, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Theo lý luận của V.I. Lênin, có bao nhiêu đặc điểm kinh tế cơ bản của độc quyền?", "o": ["Ba đặc điểm", "Bốn đặc điểm", "Năm đặc điểm", "Sáu đặc điểm"], "a": 2, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Các tổ chức độc quyền từ thấp đến cao bao gồm những loại nào?", "o": ["Cartel, Syndicate, Trust, Consortium", "Concern, Conglomerate, Cartel, TNCs", "Trust, Holding, Syndicate, OPEC", "Cartel, Trust, FDI, NAFTA"], "a": 0, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Tư bản tài chính là kết quả của sự hợp nhất giữa:", "o": ["Tư bản thương nghiệp và tư bản nông nghiệp", "Tư bản ngân hàng của các ngân hàng độc quyền và tư bản của các liên minh độc quyền các nhà công nghiệp", "Tư bản nhà nước và tư bản tư nhân", "Tư bản trong nước và tư bản nước ngoài"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Tài phiệt (đầu sỏ tài chính) thực hiện sự thống trị thông qua công cụ nào chủ yếu?", "o": ["Chế độ dân chủ và bầu cử", "\"Chế độ tham dự\"", "Kiểm soát quân sự", "Hệ thống truyền thông đại chúng"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Xuất khẩu tư bản là gì?", "o": ["Xuất khẩu hàng hóa ra nước ngoài để thu lợi nhuận thương mại", "Xuất khẩu giá trị (đầu tư tư bản) ra nước ngoài nhằm chiếm đoạt giá trị thặng dư và các nguồn lợi nhuận khác ở nước nhập khẩu tư bản", "Chuyển giao công nghệ miễn phí cho các nước đang phát triển", "Xuất khẩu lao động và chuyên gia sang nước ngoài"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Hai hình thức chủ yếu của xuất khẩu tư bản là:", "o": ["Xuất khẩu hàng hóa và xuất khẩu dịch vụ", "Đầu tư trực tiếp và đầu tư gián tiếp", "Viện trợ không hoàn lại và cho vay ưu đãi", "Đầu tư song phương và đầu tư đa phương"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Đầu tư trực tiếp trong xuất khẩu tư bản là hình thức nào?", "o": ["Mua cổ phiếu, trái phiếu của doanh nghiệp nước ngoài", "Xây dựng xí nghiệp mới hoặc mua lại xí nghiệp đang hoạt động ở nước nhận đầu tư để trực tiếp kinh doanh", "Cho vay nước ngoài để thu lãi suất", "Mua trái phiếu chính phủ nước ngoài"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Đặc điểm thứ tư của độc quyền theo Lênin là gì?", "o": ["Sự kết hợp nhân sự giữa độc quyền và nhà nước", "Cạnh tranh để phân chia thị trường thế giới là tất yếu giữa các tập đoàn độc quyền", "Xuất khẩu tư bản trở thành phổ biến", "Tư bản tài chính và hệ thống tài phiệt chi phối"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Biểu hiện mới của tích tụ và tập trung tư bản hiện nay bao gồm việc hình thành các tổ chức độc quyền mới nào?", "o": ["Cartel và Syndicate", "Concern và Conglomerate", "Trust và Consortium", "OPEC và NAFTA"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Sự kết hợp về nhân sự giữa tổ chức độc quyền và nhà nước được thực hiện chủ yếu thông qua:", "o": ["Các hiệp hội ngành nghề", "Các đảng phái chính trị", "Các tổ chức phi chính phủ quốc tế", "Hệ thống ngân hàng trung ương"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Sở hữu độc quyền nhà nước là sở hữu của ai?", "o": ["Toàn thể nhân dân lao động", "Sở hữu tập thể của giai cấp tư sản, của tư bản độc quyền", "Giai cấp công nhân và nông dân", "Các tổ chức quốc tế"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Cơ chế điều tiết kinh tế độc quyền nhà nước là sự dung hợp của bao nhiêu cơ chế?", "o": ["Hai cơ chế", "Ba cơ chế: thị trường, độc quyền tư nhân và điều tiết của nhà nước", "Bốn cơ chế", "Năm cơ chế"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Chủ thể xuất khẩu tư bản có sự thay đổi lớn trong giai đoạn hiện nay, cụ thể là vai trò ngày càng lớn của:", "o": ["Các chính phủ quốc gia", "Các công ty xuyên quốc gia (TNCs) và đầu tư trực tiếp nước ngoài (FDI)", "Các tổ chức phi lợi nhuận quốc tế", "Các doanh nghiệp vừa và nhỏ"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Các liên minh kinh tế khu vực nào được đề cập trong tài liệu?", "o": ["NATO, SEATO, ANZUS", "EU, NAFTA, OPEC", "ASEAN, SCO, BRICS", "G7, G20, IMF"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Biểu hiện mới về phân chia lãnh thổ của các cường quốc tư bản hiện nay là gì?", "o": ["Các cuộc chiến tranh quân sự trực tiếp để tranh giành thuộc địa", "Thực hiện \"chiến lược biên giới mềm\", bành trướng \"biên giới kinh tế\" rộng hơn biên giới địa lý", "Hợp tác hòa bình và chia sẻ lợi ích đồng đều", "Rút quân và từ bỏ ảnh hưởng ở nước ngoài"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Biểu hiện mới của tư bản tài chính trong các tập đoàn hiện nay là gì?", "o": ["Chỉ hoạt động trong phạm vi một quốc gia", "Xuất hiện liên kết công - nông - thương - tín - dịch vụ; chế độ ủy nhiệm; ngân hàng đa quốc gia và xuyên quốc gia", "Thu hẹp quy mô và phạm vi hoạt động", "Tập trung vào lĩnh vực sản xuất nông nghiệp"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Thể chế đa nguyên trong phân chia quyền lực nhà nước dưới chủ nghĩa tư bản hiện đại dẫn đến kết quả gì?", "o": ["Một thế lực tư bản độc tôn toàn bộ quyền lực nhà nước", "Cơ chế thỏa hiệp để cùng tồn tại, phân chia quyền lực giữa các thế lực tư bản, không cho phép bất kỳ thế lực nào độc tôn", "Nhân dân lao động nắm quyền lực nhà nước", "Quyền lực nhà nước thuộc về giai cấp công nhân"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Vai trò tích cực của chủ nghĩa tư bản bao gồm:", "o": ["Thúc đẩy lực lượng sản xuất; chuyển sản xuất nhỏ thành sản xuất lớn hiện đại; thực hiện xã hội hóa sản xuất", "Xóa bỏ giai cấp và bóc lột trong xã hội", "Phân phối thu nhập bình đẳng cho mọi tầng lớp", "Loại bỏ hoàn toàn chiến tranh và xung đột"], "a": 0, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Mâu thuẫn cơ bản của chủ nghĩa tư bản là gì?", "o": ["Mâu thuẫn giữa giai cấp nông dân và địa chủ", "Mâu thuẫn giữa trình độ xã hội hóa ngày càng cao của lực lượng sản xuất với quan hệ sản xuất dựa trên chiếm hữu tư nhân tư bản chủ nghĩa về tư liệu sản xuất", "Mâu thuẫn giữa các nước tư bản và các nước đang phát triển", "Mâu thuẫn giữa nhà nước và doanh nghiệp tư nhân"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Lý luận Mác – Lênin khẳng định xu hướng vận động của chủ nghĩa tư bản là gì?", "o": ["Chủ nghĩa tư bản tồn tại vĩnh viễn và ngày càng hoàn thiện", "Chủ nghĩa tư bản phát triển đến một trình độ nhất định sẽ bị thay thế bởi hình thái kinh tế – xã hội cộng sản chủ nghĩa", "Chủ nghĩa tư bản sẽ tự cải cách và trở thành chủ nghĩa xã hội", "Chủ nghĩa tư bản sẽ sụp đổ do chiến tranh thế giới"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Theo tài liệu, cạnh tranh và độc quyền có mối quan hệ như thế nào?", "o": ["Loại trừ nhau hoàn toàn", "Luôn cùng tồn tại song hành như hai mặt của một thể thống nhất trong nền kinh tế thị trường hiện đại", "Cạnh tranh luôn chiến thắng độc quyền", "Độc quyền luôn tiêu diệt cạnh tranh"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Trong nền kinh tế thị trường, có bao nhiêu loại cạnh tranh liên quan đến các tổ chức độc quyền?", "o": ["Hai loại", "Ba loại", "Bốn loại", "Năm loại"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Nguyên nhân thứ nhất hình thành độc quyền nhà nước là gì?", "o": ["Nhà nước muốn tăng nguồn thu ngân sách", "Tích tụ và tập trung vốn càng lớn tạo ra cơ cấu kinh tế to lớn đòi hỏi điều tiết từ một trung tâm", "Áp lực từ các tổ chức quốc tế", "Sự sụp đổ của hệ thống tài chính tư nhân"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Nhà nước điều tiết kinh tế thông qua các hình thức cơ bản nào?", "o": ["Chỉ thông qua lệnh hành chính và cưỡng chế", "Bằng công cụ kinh tế và hành chính – pháp lý; bằng ưu đãi và trừng phạt; bằng chiến lược dài hạn và giải pháp ngắn hạn", "Chỉ thông qua chính sách thuế", "Thông qua kiểm soát giá cả trực tiếp tất cả hàng hóa"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Thực chất của lợi nhuận độc quyền cao bắt nguồn từ đâu?", "o": ["Từ việc máy móc tạo ra thêm giá trị", "Từ lao động của công nhân trong xí nghiệp độc quyền; lao động không công của công nhân ngoài độc quyền; giá trị thặng dư của nhà tư bản vừa và nhỏ; lao động thặng dư của người sản xuất nhỏ", "Từ tài trợ của nhà nước cho các tổ chức độc quyền", "Từ chênh lệch tỷ giá tiền tệ quốc tế"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Giới hạn nào của chủ nghĩa tư bản được đề cập trong tài liệu?", "o": ["Không có năng lực kỹ thuật đủ để tiếp tục phát triển", "Mục đích vì lợi ích thiểu số tư sản; gây chiến tranh và xung đột; phân hóa giàu nghèo ngày càng sâu sắc", "Thiếu nguồn nhân lực để duy trì sản xuất", "Không thể xuất khẩu hàng hóa ra thị trường quốc tế"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Chính sách thực dân mới của các cường quốc tư bản có nội dung chủ yếu là gì?", "o": ["Dùng sức mạnh quân sự để kiểm soát trực tiếp lãnh thổ", "Dùng viện trợ kinh tế, kỹ thuật, quân sự để duy trì sự lệ thuộc của các nước đang phát triển", "Chia sẻ lợi ích bình đẳng với các nước nghèo", "Hỗ trợ các nước đang phát triển không điều kiện"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Biểu hiện mới về sở hữu nhà nước trong chủ nghĩa tư bản hiện đại bao gồm điều gì?", "o": ["Nhà nước bán hết cổ phần trong doanh nghiệp", "Cổ phần của nhà nước trong ngân hàng và công ty lớn trở nên phổ biến; đầu tư nhà nước vào nghiên cứu cơ bản, kết cấu hạ tầng và giải quyết nhu cầu xã hội ngày càng tăng", "Nhà nước không còn can thiệp vào nền kinh tế", "Tư nhân hóa toàn bộ các doanh nghiệp nhà nước"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}, {"q": "Đặc điểm thứ nhất về độc quyền theo Lênin là gì?", "o": ["Xuất khẩu tư bản trở thành phổ biến", "Các tổ chức độc quyền có quy mô tích tụ và tập trung tư bản lớn", "Cạnh tranh để phân chia thị trường thế giới", "Kết hợp về nhân sự giữa độc quyền và nhà nước"], "a": 1, "cat": "CHƯƠNG 4: CẠNH TRANH VÀ ĐỘC QUYỀN TRONG NỀN KINH TẾ THỊ TRƯỜNG (40 câu)"}]}, {"id": 5, "title": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)", "questions": [{"q": "Kinh tế thị trường định hướng xã hội chủ nghĩa ở Việt Nam được định nghĩa là gì?", "o": ["Nền kinh tế kế hoạch hóa tập trung do Đảng Cộng sản lãnh đạo", "Nền kinh tế vận hành theo các quy luật thị trường, góp phần hướng tới xã hội dân giàu, nước mạnh, dân chủ, công bằng, văn minh; có sự điều tiết của Nhà nước do Đảng Cộng sản Việt Nam lãnh đạo", "Nền kinh tế tư bản chủ nghĩa có điều tiết của nhà nước", "Nền kinh tế hỗn hợp giữa tư bản chủ nghĩa và xã hội chủ nghĩa"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Phát triển kinh tế thị trường định hướng XHCN là đường lối chiến lược nhất quán trong giai đoạn nào của Việt Nam?", "o": ["Giai đoạn kháng chiến chống ngoại xâm", "Suốt thời kỳ quá độ lên chủ nghĩa xã hội", "Chỉ trong giai đoạn đổi mới (1986–2000)", "Giai đoạn hội nhập kinh tế quốc tế"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Có bao nhiêu lý do cơ bản về tính tất yếu của phát triển kinh tế thị trường định hướng XHCN ở Việt Nam?", "o": ["Hai lý do", "Ba lý do", "Bốn lý do", "Năm lý do"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Mục tiêu của kinh tế thị trường định hướng XHCN ở Việt Nam là gì?", "o": ["Tối đa hóa lợi nhuận của doanh nghiệp nhà nước", "Phát triển lực lượng sản xuất, xây dựng cơ sở vật chất – kỹ thuật của CNXH; thực hiện \"dân giàu, nước mạnh, dân chủ, công bằng, văn minh\"", "Nhanh chóng trở thành nền kinh tế tư bản chủ nghĩa phát triển", "Xóa bỏ hoàn toàn kinh tế tư nhân"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Trong nền kinh tế thị trường định hướng XHCN ở Việt Nam, thành phần kinh tế nào giữ vai trò chủ đạo?", "o": ["Kinh tế tư nhân", "Kinh tế nhà nước", "Kinh tế có vốn đầu tư nước ngoài", "Kinh tế tập thể"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Kinh tế tư nhân có vị trí như thế nào trong nền kinh tế thị trường định hướng XHCN ở Việt Nam?", "o": ["Không được phép hoạt động", "Là một động lực quan trọng", "Giữ vai trò chủ đạo", "Chỉ hoạt động trong lĩnh vực nông nghiệp"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Về quan hệ quản lý kinh tế, đặc trưng riêng của Việt Nam là gì?", "o": ["Nhà nước để thị trường tự điều tiết hoàn toàn", "Nhà nước pháp quyền XHCN của nhân dân, do nhân dân, vì nhân dân dưới sự lãnh đạo của Đảng Cộng sản, quản lý với mục tiêu dùng kinh tế thị trường để xây dựng CNXH", "Doanh nghiệp tư nhân tự quản lý nền kinh tế", "Nước ngoài tham gia quản lý kinh tế Việt Nam"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Về quan hệ phân phối, kinh tế thị trường định hướng XHCN ở Việt Nam thực hiện phân phối kết quả chủ yếu theo:", "o": ["Bình quân cho mọi người", "Kết quả lao động, hiệu quả kinh tế, mức đóng góp vốn cùng các nguồn lực khác và thông qua hệ thống an sinh xã hội", "Nhu cầu của từng cá nhân", "Quyết định của nhà nước"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Đặc trưng nào phản ánh thuộc tính quan trọng mang tính định hướng XHCN của nền kinh tế thị trường Việt Nam?", "o": ["Ưu tiên tối đa hóa tốc độ tăng trưởng GDP", "Gắn tăng trưởng kinh tế với công bằng xã hội; phát triển kinh tế đi đôi với phát triển văn hóa – xã hội", "Thu hút vốn đầu tư nước ngoài không giới hạn", "Xóa bỏ hoàn toàn chênh lệch thu nhập"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Thể chế kinh tế là gì?", "o": ["Tổng sản phẩm quốc nội (GDP) của một quốc gia", "Hệ thống quy tắc, luật pháp, bộ máy quản lý và cơ chế vận hành nhằm điều chỉnh hành vi của các chủ thể kinh tế, các hành vi sản xuất kinh doanh và các quan hệ kinh tế", "Cơ cấu ngành nghề trong nền kinh tế", "Hệ thống ngân hàng và tổ chức tài chính"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Có bao nhiêu lý do phải hoàn thiện thể chế kinh tế thị trường định hướng XHCN ở Việt Nam?", "o": ["Hai lý do", "Ba lý do", "Bốn lý do", "Năm lý do"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Hoàn thiện thể chế về sở hữu trí tuệ hướng đến mục tiêu gì?", "o": ["Độc quyền sở hữu trí tuệ cho các doanh nghiệp nhà nước", "Khuyến khích sáng tạo, bảo đảm tính minh bạch và độ tin cậy, bảo vệ quyền sở hữu trí tuệ", "Xóa bỏ quyền sở hữu trí tuệ để chia sẻ miễn phí", "Hạn chế nhập khẩu công nghệ nước ngoài"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Trong hội nhập kinh tế quốc tế, Việt Nam cần thực hiện chủ trương gì để tránh phụ thuộc?", "o": ["Chỉ giao thương với một số đối tác chiến lược", "Đa phương hóa, đa dạng hóa trong hợp tác kinh tế quốc tế, không để bị lệ thuộc vào một số ít thị trường", "Đóng cửa nền kinh tế để tự lực", "Tập trung xuất khẩu sang thị trường lớn nhất"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Lợi ích kinh tế là gì?", "o": ["Tổng thu nhập quốc dân của một nước", "Lợi ích vật chất, thu được khi thực hiện các hoạt động kinh tế của con người", "Quyền tự do kinh doanh của doanh nghiệp", "Mức tăng trưởng GDP hàng năm"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Lợi ích kinh tế có vai trò gì đối với các chủ thể kinh tế – xã hội?", "o": ["Là nhân tố cản trở sự phát triển kinh tế", "Là động lực trực tiếp của các chủ thể và hoạt động kinh tế – xã hội; là cơ sở thúc đẩy sự phát triển các lợi ích khác", "Chỉ có tác dụng trong nền kinh tế thị trường tư bản chủ nghĩa", "Không có vai trò gì trong nền kinh tế định hướng XHCN"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Lợi ích kinh tế chủ yếu của chủ doanh nghiệp là gì?", "o": ["Tiền công lao động", "Lợi nhuận", "Địa tô", "Lợi tức"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Lợi ích kinh tế chủ yếu của người lao động là gì?", "o": ["Lợi nhuận từ kinh doanh", "Tiền công", "Địa tô và lợi tức", "Cổ tức từ cổ phiếu"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Mâu thuẫn về lợi ích kinh tế là cội nguồn của điều gì?", "o": ["Sự phát triển kinh tế nhanh chóng", "Các xung đột xã hội", "Sự đoàn kết giữa các giai cấp", "Tiến bộ khoa học – công nghệ"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Trong các hình thức lợi ích kinh tế, lợi ích nào là cơ sở, nền tảng của các lợi ích khác?", "o": ["Lợi ích xã hội", "Lợi ích cá nhân", "Lợi ích tập thể", "Lợi ích quốc gia"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Có bao nhiêu nhân tố chủ yếu ảnh hưởng đến quan hệ lợi ích kinh tế?", "o": ["Hai nhân tố", "Ba nhân tố", "Bốn nhân tố", "Năm nhân tố"], "a": 2, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Các nhân tố ảnh hưởng đến quan hệ lợi ích kinh tế gồm:", "o": ["Dân số, địa lý, khí hậu, văn hóa", "Trình độ phát triển lực lượng sản xuất; địa vị chủ thể trong quan hệ sản xuất; chính sách phân phối thu nhập; hội nhập kinh tế quốc tế", "Tỷ lệ lạm phát, lãi suất, tỷ giá, giá dầu", "Đảng phái, tôn giáo, sắc tộc, truyền thống"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Có bao nhiêu quan hệ lợi ích kinh tế cơ bản trong nền kinh tế thị trường?", "o": ["Hai quan hệ", "Ba quan hệ", "Bốn quan hệ", "Năm quan hệ"], "a": 2, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Hai phương thức cơ bản để thực hiện lợi ích kinh tế trong nền kinh tế thị trường định hướng XHCN là gì?", "o": ["Theo mệnh lệnh hành chính và theo truyền thống", "Theo nguyên tắc thị trường và theo chính sách của nhà nước cùng vai trò của tổ chức xã hội", "Theo kế hoạch nhà nước và theo thỏa thuận doanh nghiệp", "Theo phong trào thi đua và theo quyết định tập thể"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Nhà nước bảo vệ lợi ích hợp pháp bằng cách nào?", "o": ["Cấm tất cả hoạt động kinh doanh có rủi ro", "Giữ vững ổn định chính trị; xây dựng môi trường pháp luật thông thoáng; xây dựng kết cấu hạ tầng; tạo lập môi trường văn hóa phù hợp", "Trực tiếp can thiệp vào từng giao dịch kinh tế", "Quốc hữu hóa các doanh nghiệp thua lỗ"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Nguyên tắc giải quyết mâu thuẫn giữa các lợi ích kinh tế là gì?", "o": ["Bên mạnh hơn về kinh tế sẽ thắng", "Phải có sự tham gia của các bên liên quan, có nhân nhượng nhưng phải đặt lợi ích đất nước lên trên hết", "Nhà nước quyết định một chiều, không cần thương lượng", "Tuân theo phán quyết của tổ chức quốc tế"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Thể chế là gì?", "o": ["Tổng sản phẩm trong nước của một nền kinh tế", "Những quy tắc, luật pháp, bộ máy quản lý và cơ chế vận hành nhằm điều chỉnh các hoạt động của con người trong một chế độ xã hội", "Cơ cấu tổ chức của một doanh nghiệp", "Hệ thống ngân hàng và tổ chức tài chính quốc tế"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Quan hệ sở hữu trong nền kinh tế KTTT định hướng XHCN ở Việt Nam có đặc điểm gì?", "o": ["Chỉ có một hình thức sở hữu toàn dân", "Nhiều hình thức sở hữu, nhiều thành phần kinh tế; các chủ thể bình đẳng, hợp tác, cạnh tranh cùng phát triển", "Chỉ có sở hữu tư nhân và sở hữu nước ngoài", "Nhà nước độc quyền sở hữu tất cả tư liệu sản xuất"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Sở hữu được hiểu là quan hệ nào?", "o": ["Quan hệ giữa con người với tự nhiên trong quá trình lao động", "Quan hệ giữa con người với con người trong quá trình sản xuất và tái sản xuất xã hội trên cơ sở chiếm hữu nguồn lực sản xuất và kết quả lao động", "Quan hệ pháp lý về quyền sử dụng đất", "Quan hệ giữa người mua và người bán trên thị trường"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Điều hòa lợi ích giữa cá nhân – doanh nghiệp – xã hội, nhà nước cần làm gì?", "o": ["Bình quân hóa thu nhập của tất cả mọi người", "Có chính sách phân phối thu nhập bảo đảm hài hòa lợi ích; thừa nhận chênh lệch thu nhập khách quan nhưng ngăn chặn chênh lệch quá cao; phát triển lực lượng sản xuất để nâng cao thu nhập", "Để thị trường tự điều tiết toàn bộ", "Cấm mọi hoạt động làm giàu của cá nhân"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Người dân được phép làm gì theo nguyên tắc trong kinh tế thị trường định hướng XHCN?", "o": ["Chỉ được làm những gì nhà nước cho phép", "Được làm tất cả những gì luật pháp không cấm; luật pháp chỉ cấm những hoạt động gây tổn hại lợi ích quốc gia và lợi ích hợp pháp khác", "Được làm tất cả mọi thứ không giới hạn", "Chỉ được làm những ngành nhà nước không kinh doanh"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Kiểm soát, ngăn ngừa quan hệ lợi ích tiêu cực, nhà nước cần làm gì liên quan đến bộ máy?", "o": ["Tăng biên chế, mở rộng bộ máy nhà nước", "Bộ máy nhà nước liêm chính, hiệu lực; tuyển dụng người có tài, có tâm; đãi ngộ xứng đáng; kiểm soát thu nhập công chức; công khai minh bạch mọi cơ chế chính sách", "Trao toàn quyền cho cán bộ địa phương", "Giảm lương cán bộ để tiết kiệm ngân sách"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Thể chế kinh tế bao gồm bao nhiêu bộ phận cơ bản?", "o": ["Hai bộ phận", "Ba bộ phận", "Bốn bộ phận", "Năm bộ phận"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Tính ưu việt của kinh tế thị trường được thể hiện ở điểm nào trong lý do phát triển KTTT định hướng XHCN ở Việt Nam?", "o": ["Xóa bỏ hoàn toàn bất bình đẳng trong xã hội", "Phân bổ nguồn lực hiệu quả; thúc đẩy lực lượng sản xuất; kích thích tiến bộ khoa học kỹ thuật; nâng cao năng suất lao động", "Đảm bảo tất cả mọi người đều giàu như nhau", "Loại bỏ hoàn toàn khủng hoảng kinh tế"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Lý do thứ ba của tính tất yếu phát triển KTTT định hướng XHCN ở Việt Nam là gì?", "o": ["Áp lực từ các tổ chức kinh tế quốc tế", "Phù hợp với nguyện vọng dân giàu, nước mạnh, dân chủ, công bằng, văn minh của người dân Việt Nam", "Nhu cầu gia tăng xuất khẩu hàng hóa", "Đáp ứng yêu cầu của các nhà đầu tư nước ngoài"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Hoàn thiện thể chế về đất đai nhằm mục đích gì?", "o": ["Tư nhân hóa toàn bộ đất đai", "Huy động và sử dụng hiệu quả đất đai, khắc phục tình trạng sử dụng đất lãng phí", "Quốc hữu hóa toàn bộ đất đai", "Tăng giá đất để tăng nguồn thu ngân sách"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Quan hệ lợi ích kinh tế là sự thiết lập tương tác nhằm mục tiêu gì?", "o": ["Loại bỏ lợi ích cá nhân khỏi nền kinh tế", "Xác lập các lợi ích kinh tế trong mối liên hệ với trình độ phát triển của lực lượng sản xuất và kiến trúc thượng tầng tương ứng", "Cân bằng hoàn toàn thu nhập giữa các chủ thể", "Loại bỏ mọi mâu thuẫn trong xã hội"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Việc thực hiện công khai, minh bạch các cơ chế, chính sách nhằm mục đích gì?", "o": ["Tăng quyền lực cho cán bộ nhà nước", "Giúp các cơ quan công quyền, cán bộ được giám sát, tránh lạm quyền, thiếu trách nhiệm, tham nhũng", "Làm chậm quá trình ra quyết định", "Phục vụ lợi ích của nhóm lợi ích đặc biệt"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Hoàn thiện thể chế nâng cao năng lực lãnh đạo cần phát huy điều gì?", "o": ["Quyền lực tập trung vào một cá nhân lãnh đạo", "Sức mạnh về trí tuệ, nguồn lực và sự đồng thuận của toàn dân tộc; nâng cao năng lực lãnh đạo của Đảng, vai trò của Nhà nước và phát huy vai trò của nhân dân", "Quyền lực của các tổ chức độc quyền", "Ảnh hưởng của nhà đầu tư nước ngoài"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Sự thống nhất trong quan hệ lợi ích kinh tế thể hiện như thế nào?", "o": ["Tất cả các chủ thể có lợi ích giống nhau hoàn toàn", "Một chủ thể có thể là bộ phận cấu thành của chủ thể khác, khi lợi ích chủ thể này được thực hiện thì lợi ích chủ thể khác cũng trực tiếp hoặc gián tiếp được thực hiện", "Nhà nước đảm bảo tất cả mọi người đều có lợi ích như nhau", "Các chủ thể không bao giờ có mâu thuẫn lợi ích"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}, {"q": "Khi mâu thuẫn lợi ích kinh tế phát sinh giữa các chủ thể, cần có sự tham gia hòa giải của ai?", "o": ["Chỉ cần hai bên tự thỏa thuận", "Các tổ chức xã hội có liên quan, đặc biệt là nhà nước", "Tổ chức quốc tế như WTO", "Chỉ cần tòa án giải quyết"], "a": 1, "cat": "CHƯƠNG 5: KINH TẾ THỊ TRƯỜNG ĐỊNH HƯỚNG XÃ HỘI CHỦ NGHĨA VÀ CÁC QUAN HỆ LỢI ÍCH KINH TẾ Ở VIỆT NAM (40 câu)"}]}, {"id": 6, "title": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)", "questions": [{"q": "Cách mạng công nghiệp được định nghĩa là gì?", "o": ["Quá trình tự động hóa hoàn toàn mọi ngành sản xuất", "Những bước phát triển nhảy vọt về chất trình độ của tư liệu lao động trên cơ sở những phát minh đột phá về kỹ thuật và công nghệ, kéo theo thay đổi căn bản về phân công lao động và tạo bước phát triển năng suất lao động cao hơn hẳn", "Quá trình công nhân đấu tranh giành quyền lao động", "Sự phát triển của ngành công nghiệp nặng trong một quốc gia"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Cách mạng công nghiệp lần thứ nhất khởi phát từ nước nào và vào thời gian nào?", "o": ["Pháp, cuối thế kỷ XVIII", "Anh, từ giữa thế kỷ XVIII đến giữa thế kỷ XIX", "Mỹ, đầu thế kỷ XIX", "Đức, cuối thế kỷ XIX"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Nội dung cơ bản của cách mạng công nghiệp lần thứ nhất là gì?", "o": ["Sử dụng năng lượng điện và động cơ điện trong sản xuất", "Chuyển từ lao động thủ công thành lao động sử dụng máy móc, thực hiện cơ giới hóa sản xuất bằng năng lượng nước và hơi nước", "Tự động hóa sản xuất bằng công nghệ thông tin", "Ứng dụng trí tuệ nhân tạo và Internet vạn vật"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Phát minh quan trọng nhất mở đầu quá trình cơ giới hóa trong cách mạng công nghiệp lần thứ nhất là gì?", "o": ["Máy tính cá nhân của Steve Jobs", "Máy hơi nước của James Watt", "Động cơ điện của Tesla", "Internet của Tim Berners-Lee"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "C. Mác khái quát cách mạng công nghiệp lần thứ nhất qua ba giai đoạn nào?", "o": ["Tiền tư bản, tư bản, hậu tư bản", "Hiệp tác giản đơn, công trường thủ công và đại công nghiệp", "Sản xuất thủ công, cơ khí hóa, tự động hóa", "Nông nghiệp, công nghiệp, dịch vụ"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Cách mạng công nghiệp lần thứ hai diễn ra vào thời gian nào?", "o": ["Giữa thế kỷ XVIII đến giữa thế kỷ XIX", "Nửa cuối thế kỷ XIX đến đầu thế kỷ XX", "Từ thập niên 60 đến cuối thế kỷ XX", "Từ năm 2011 đến nay"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Nội dung của cách mạng công nghiệp lần thứ hai là gì?", "o": ["Cơ giới hóa sản xuất bằng năng lượng nước và hơi nước", "Sử dụng năng lượng điện và động cơ điện, tạo dây chuyền sản xuất chuyên môn hóa cao; chuyển sang nền sản xuất điện – cơ khí và tự động hóa cục bộ", "Ứng dụng công nghệ thông tin vào sản xuất", "Phát triển trí tuệ nhân tạo và in 3D"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Đặc trưng cơ bản của cách mạng công nghiệp lần thứ ba là gì?", "o": ["Sử dụng năng lượng hơi nước", "Sự xuất hiện công nghệ thông tin và tự động hóa sản xuất; được xúc tác bởi chất bán dẫn, siêu máy tính, máy tính cá nhân và Internet", "Năng lượng điện và dây chuyền sản xuất", "Internet kết nối vạn vật (IoT) và trí tuệ nhân tạo"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Cách mạng công nghiệp lần thứ tư (4.0) được đề cập lần đầu ở đâu và năm nào?", "o": ["Hội nghị G7 tại Mỹ năm 2008", "Hội chợ triển lãm công nghệ Hannover (Đức) năm 2011 và được đưa vào \"Kế hoạch hành động chiến lược công nghệ cao\" năm 2012", "Diễn đàn Kinh tế Thế giới tại Davos năm 2016", "Hội nghị thượng đỉnh APEC tại Nhật Bản năm 2010"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Đặc trưng của cách mạng công nghiệp lần thứ tư là gì?", "o": ["Máy hơi nước và cơ giới hóa", "Trí tuệ nhân tạo (AI), big data, in 3D; gắn với Internet kết nối vạn vật (IoT)", "Dây chuyền sản xuất và động cơ điện", "Máy tính cá nhân và Internet thế hệ đầu"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Vai trò của cách mạng công nghiệp đối với phát triển là gì?", "o": ["Chỉ tác động đến ngành sản xuất công nghiệp", "Thúc đẩy phát triển lực lượng sản xuất; thúc đẩy hoàn thiện quan hệ sản xuất; thúc đẩy đổi mới phương thức quản trị phát triển", "Chỉ tác động đến khoa học và công nghệ", "Chỉ có tác động tiêu cực đến người lao động"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Công nghiệp hóa là gì?", "o": ["Quá trình xây dựng thêm nhiều nhà máy và khu công nghiệp", "Quá trình chuyển đổi nền sản xuất xã hội từ dựa trên lao động thủ công là chính sang nền sản xuất xã hội dựa chủ yếu trên lao động bằng máy móc nhằm tạo ra năng suất lao động xã hội cao", "Quá trình thu hút đầu tư nước ngoài vào lĩnh vực sản xuất", "Quá trình đào tạo công nhân kỹ thuật cho đất nước"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Công nghiệp hóa, hiện đại hóa (CNH-HĐH) ở Việt Nam được định nghĩa là gì?", "o": ["Chỉ chuyển đổi ngành nông nghiệp sang công nghiệp", "Quá trình chuyển đổi căn bản toàn diện các hoạt động sản xuất kinh doanh, dịch vụ và quản lý kinh tế – xã hội từ sử dụng sức lao động thủ công sang sử dụng phổ biến công nghệ, phương tiện, phương pháp tiên tiến hiện đại nhằm tạo ra năng suất lao động xã hội cao", "Quá trình phát triển kinh tế số và thương mại điện tử", "Quá trình xây dựng kết cấu hạ tầng giao thông"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Tại sao CNH-HĐH là tất yếu đối với Việt Nam?", "o": ["Vì Việt Nam có lực lượng lao động dư thừa", "Công nghiệp hóa là quy luật phổ biến của phát triển lực lượng sản xuất; Việt Nam từ nền kinh tế kém phát triển phải thực hiện CNH-HĐH để xây dựng cơ sở vật chất kỹ thuật cho CNXH", "Vì các nước phát triển yêu cầu Việt Nam công nghiệp hóa", "Vì Việt Nam cần tăng xuất khẩu hàng hóa"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Tác động của CNH-HĐH đối với an ninh – quốc phòng là gì?", "o": ["Làm suy yếu khả năng quốc phòng vì phụ thuộc vào công nghệ nước ngoài", "Tăng cường tiềm lực an ninh, quốc phòng", "Không có tác động đến quốc phòng", "Chỉ tác động đến kinh tế, không ảnh hưởng quốc phòng"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Đặc điểm chủ yếu của CNH-HĐH ở Việt Nam bao gồm điều gì?", "o": ["Theo định hướng tư bản chủ nghĩa; ưu tiên xuất khẩu", "Theo định hướng XHCN; gắn với kinh tế tri thức; trong điều kiện kinh tế thị trường định hướng XHCN; trong bối cảnh toàn cầu hóa và hội nhập kinh tế quốc tế", "Chỉ tập trung vào phát triển công nghiệp nặng", "Dựa hoàn toàn vào vốn đầu tư nước ngoài"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Nội dung CNH-HĐH ở Việt Nam bao gồm bao nhiêu nhóm nhiệm vụ chính?", "o": ["Hai nhóm", "Ba nhóm", "Bốn nhóm", "Năm nhóm"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Nội dung thứ ba của CNH-HĐH ở Việt Nam là gì?", "o": ["Tạo lập điều kiện để chuyển đổi nền sản xuất", "Sẵn sàng thích ứng với tác động của cách mạng công nghiệp lần thứ tư (4.0)", "Thực hiện các nhiệm vụ để chuyển đổi nền sản xuất", "Xây dựng kết cấu hạ tầng hiện đại"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Hội nhập kinh tế quốc tế của một quốc gia là gì?", "o": ["Quá trình mở cửa thị trường hoàn toàn, không có rào cản thương mại", "Quá trình quốc gia đó thực hiện gắn kết nền kinh tế của mình với nền kinh tế thế giới dựa trên sự chia sẻ lợi ích đồng thời tuân thủ các chuẩn mực quốc tế chung", "Quá trình cho phép tất cả hàng hóa nước ngoài vào thị trường nội địa", "Quá trình tham gia các tổ chức chính trị quốc tế"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Tại sao hội nhập kinh tế quốc tế là tất yếu?", "o": ["Vì các nước lớn ép buộc các nước nhỏ phải hội nhập", "Do xu thế khách quan của toàn cầu hóa kinh tế; là phương thức phát triển phổ biến của các nước, đặc biệt là các nước đang và kém phát triển", "Vì hội nhập giúp loại bỏ hoàn toàn rủi ro kinh tế", "Vì hội nhập đảm bảo tất cả các nước đều giàu như nhau"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Tác động tích cực của hội nhập kinh tế quốc tế đối với Việt Nam là gì?", "o": ["Giúp Việt Nam tự lực hoàn toàn, không cần nhập khẩu", "Mở rộng thị trường; tiếp thu khoa học – công nghệ, vốn; chuyển dịch cơ cấu kinh tế; nâng cao chất lượng nguồn nhân lực; thúc đẩy hội nhập văn hóa, chính trị; củng cố an ninh – quốc phòng", "Loại bỏ hoàn toàn cạnh tranh từ bên ngoài", "Đảm bảo ổn định tỷ giá hối đoái vĩnh viễn"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Tác động tiêu cực của hội nhập kinh tế quốc tế đối với Việt Nam bao gồm điều gì?", "o": ["Làm tăng chủ quyền quốc gia và giảm phụ thuộc bên ngoài", "Gia tăng cạnh tranh gay gắt; tăng phụ thuộc thị trường bên ngoài; nguy cơ phân phối lợi ích không công bằng; xói mòn bản sắc dân tộc; tăng nguy cơ tội phạm xuyên quốc gia", "Làm giảm hoàn toàn đầu tư nước ngoài vào Việt Nam", "Không có tác động tiêu cực nào đáng kể"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Phương hướng nâng cao hiệu quả hội nhập kinh tế quốc tế của Việt Nam bao gồm bao nhiêu nội dung?", "o": ["Bốn nội dung", "Năm nội dung", "Sáu nội dung", "Bảy nội dung"], "a": 2, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Trong cách mạng công nghiệp lần thứ ba, các phát minh quan trọng gồm:", "o": ["Máy hơi nước, thoi bay, xe kéo sợi Jenny", "Hệ thống mạng, máy tính cá nhân, thiết bị điện tử số và robot công nghiệp", "Động cơ đốt trong, điện thoại, ô tô", "Trí tuệ nhân tạo, big data, in 3D"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Cách mạng công nghiệp lần thứ ba diễn ra vào thời gian nào?", "o": ["Từ giữa thế kỷ XVIII đến giữa thế kỷ XIX", "Từ khoảng đầu thập niên 60 thế kỷ XX đến cuối thế kỷ XX", "Nửa cuối thế kỷ XIX đến đầu thế kỷ XX", "Từ năm 2011 đến nay"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Phương pháp quản lý sản xuất tiên tiến của H. Ford và Taylor (sản xuất theo dây chuyền) có ảnh hưởng gì?", "o": ["Làm giảm năng suất lao động", "Thúc đẩy năng suất lao động", "Tăng chi phí sản xuất", "Làm tăng số lượng công nhân cần thiết"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Các mô hình công nghiệp hóa tiêu biểu trên thế giới được đề cập trong tài liệu gồm:", "o": ["Mô hình Trung Quốc, Ấn Độ, Brazil", "Mô hình cổ điển; mô hình kiểu Liên Xô; mô hình của Nhật Bản và các nước công nghiệp mới (NICs)", "Mô hình Đức, Pháp, Anh", "Mô hình Mỹ, Canada, Australia"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "CNH-HĐH tác động như thế nào đến quan hệ sản xuất XHCN?", "o": ["Xóa bỏ quan hệ sản xuất XHCN", "Củng cố quan hệ sản xuất XHCN, tăng cường khối liên minh công – nông – trí thức", "Chuyển quan hệ sản xuất XHCN sang tư bản chủ nghĩa", "Không có tác động đến quan hệ sản xuất"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Máy móc trong ngành dệt của Cách mạng công nghiệp lần thứ nhất được phát minh bởi ai?", "o": ["Henry Ford và Frederick Taylor", "John Kay (thoi bay, 1733), xe kéo sợi Jenny (1764), Edmund Cartwright (máy dệt, 1785)", "James Watt và Henry Bessemer", "Thomas Edison và Nikola Tesla"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Hội nhập kinh tế quốc tế có thể gây ra tác động tiêu cực nào đối với cơ cấu kinh tế?", "o": ["Đẩy mạnh phát triển công nghiệp công nghệ cao", "Nguy cơ chuyển dịch cơ cấu kinh tế tự nhiên bất lợi, tập trung vào ngành thâm dụng tài nguyên và lao động thấp", "Giảm phụ thuộc vào xuất khẩu nguyên liệu thô", "Tăng cường vị thế quốc gia trên trường quốc tế"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Để nâng cao hiệu quả hội nhập kinh tế quốc tế, Việt Nam cần xây dựng nền kinh tế như thế nào?", "o": ["Nền kinh tế hoàn toàn phụ thuộc vào đối tác chiến lược", "Nền kinh tế độc lập, tự chủ của Việt Nam", "Nền kinh tế đóng cửa, không hội nhập", "Nền kinh tế chỉ dựa vào FDI"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "CNH-HĐH tác động như thế nào đến đời sống nhân dân?", "o": ["Làm giảm chất lượng cuộc sống do ô nhiễm", "Nâng cao năng suất lao động, đời sống vật chất và tinh thần của nhân dân", "Không tác động đến đời sống nhân dân", "Chỉ nâng cao đời sống của giai cấp công nhân"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Nội dung hội nhập kinh tế quốc tế gồm:", "o": ["Chỉ ký kết các hiệp định thương mại tự do", "Chuẩn bị các điều kiện để thực hiện hội nhập thành công và thực hiện đa dạng các hình thức, các mức độ hội nhập kinh tế quốc tế", "Chỉ thu hút đầu tư trực tiếp nước ngoài", "Chỉ tham gia các tổ chức kinh tế khu vực"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Hội nhập kinh tế quốc tế thách thức điều gì đối với Việt Nam?", "o": ["Tăng cường quyền lực nhà nước và chủ quyền", "Thách thức đối với quyền lực nhà nước, chủ quyền quốc gia và nguy cơ xói mòn bản sắc dân tộc", "Làm giảm mức độ cạnh tranh trong nước", "Làm giảm phụ thuộc vào công nghệ nước ngoài"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Phát minh quan trọng của cách mạng công nghiệp lần thứ hai gồm:", "o": ["Máy hơi nước, thoi bay, xe kéo sợi", "Điện, xăng dầu, động cơ đốt trong; kỹ thuật luyện thép Bessemer; sản xuất ô tô, điện thoại; phương pháp quản lý của Ford và Taylor", "Internet, máy tính cá nhân, robot công nghiệp", "Trí tuệ nhân tạo, big data, blockchain"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Kết luận chung về các cuộc cách mạng công nghiệp là gì?", "o": ["Mỗi cuộc cách mạng chỉ tác động đến một ngành kinh tế duy nhất", "Mỗi cuộc cách mạng công nghiệp có nội dung cốt lõi, phát triển nhảy vọt về tư liệu lao động, thúc đẩy văn minh nhân loại và có ý nghĩa đặc biệt quan trọng trong thúc đẩy phát triển", "Các cuộc cách mạng công nghiệp chỉ có tác động tiêu cực đến xã hội", "Chỉ các nước phát triển mới được hưởng lợi từ cách mạng công nghiệp"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Để tích cực, chủ động hội nhập, Việt Nam cần làm gì?", "o": ["Chỉ tham gia các tổ chức mà Việt Nam có lợi thế hoàn toàn", "Tích cực, chủ động tham gia vào các liên kết kinh tế quốc tế và thực hiện đầy đủ các cam kết", "Từ chối mọi cam kết ràng buộc chủ quyền", "Chỉ hội nhập trong phạm vi khu vực ASEAN"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "CNH-HĐH gắn với phát triển kinh tế tri thức là đặc điểm riêng có của Việt Nam so với các nước đi trước. Điều này có nghĩa là gì?", "o": ["Chỉ đầu tư vào ngành giáo dục và đào tạo", "Trong quá trình CNH-HĐH, Việt Nam gắn liền với phát triển kinh tế dựa trên tri thức, không chỉ dựa vào vốn và lao động thô", "Từ bỏ hoàn toàn các ngành sản xuất truyền thống", "Ưu tiên nhập khẩu công nghệ mà không nghiên cứu trong nước"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Để nâng cao năng lực cạnh tranh quốc tế trong hội nhập, Việt Nam cần:", "o": ["Hạ giá hàng hóa xuất khẩu bằng mọi cách", "Nâng cao năng lực cạnh tranh quốc tế của nền kinh tế và hoàn thiện thể chế kinh tế, luật pháp", "Tăng trợ cấp nhà nước cho các doanh nghiệp xuất khẩu", "Áp thuế cao đối với hàng nhập khẩu"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}, {"q": "Hội nhập kinh tế quốc tế làm tăng nguy cơ nào đối với xã hội?", "o": ["Giảm tệ nạn xã hội trong nước", "Tăng nguy cơ khủng bố quốc tế, buôn lậu, tội phạm xuyên quốc gia, dịch bệnh", "Làm mất đi tất cả bản sắc văn hóa dân tộc ngay lập tức", "Làm giảm đầu tư nước ngoài vào Việt Nam"], "a": 1, "cat": "CHƯƠNG 6: CÔNG NGHIỆP HÓA, HIỆN ĐẠI HÓA VÀ HỘI NHẬP KINH TẾ QUỐC TẾ CỦA VIỆT NAM (40 câu)"}]}]}, {"id": "part2", "title": "Phần 2: Câu hỏi trắc nghiệm trong sách (File 3)", "chapters": [{"id": 1, "title": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin", "questions": [{"q": "Thuật ngữ \"Kinh tế chính trị\" xuất hiện lần đầu tiên vào năm nào và trong tác phẩm nào?", "o": ["1776 - Sự giàu có của các quốc gia (A. Smith)", "1615 - Chuyên luận về kinh tế chính trị (A. Montchretien)", "1867 - Bộ Tư bản (C. Mác)", "1615 - Chuyên luận về kinh tế chính trị (W. Petty)"], "a": 1, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Hệ thống lý luận kinh tế chính trị nào lần đầu tiên nghiên cứu về nền sản xuất tư bản chủ nghĩa?", "o": ["Chủ nghĩa trọng nông", "Chủ nghĩa trọng thương", "Kinh tế chính trị cổ điển Anh", "Kinh tế chính trị Mác - Lênin"], "a": 2, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Ai được coi là \"tiền bối lớn nhất\" của D. Ricardo, người đã đưa kinh tế chính trị trở thành một môn học chính thức?", "o": ["W. Petty", "F. Quesnay", "A. Smith", "Ph. Ăngghen"], "a": 2, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Theo Ph.Ăngghen, kinh tế chính trị theo \"nghĩa rộng\" là gì?", "o": ["Khoa học nghiên cứu quan hệ sản xuất trong một phương thức sản xuất cụ thể", "Khoa học về những quy luật chi phối sự sản xuất và trao đổi tư liệu sinh hoạt trong xã hội loài người", "Khoa học nghiên cứu cách thức làm giàu của các quốc gia", "Khoa học nghiên cứu hành vi của người tiêu dùng và người sản xuất"], "a": 1, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "V.I.Lênin đã đóng góp gì vào việc phát triển kinh tế chính trị Mác - Lênin?", "o": ["Xây dựng học thuyết giá trị thặng dư", "Nghiên cứu đặc điểm kinh tế của chủ nghĩa tư bản độc quyền và thời kỳ quá độ lên CNXH", "Phát hiện ra quy luật cung cầu", "Phủ nhận vai trò của kinh tế chính trị cổ điển Anh"], "a": 1, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Phương pháp nghiên cứu chủ yếu của Kinh tế chính trị Mác - Lênin là:", "o": ["Phương pháp trừu tượng hóa khoa học", "Phương pháp logic và lịch sử", "Phương pháp phân tích", "Phương pháp tổng hợp"], "a": 1, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Kinh tế chính trị Mác - Lênin là một bộ phận cấu thành của:", "o": ["Chủ nghĩa Mác - Lênin", "Chủ nghĩa độc quyền", "Chủ nghĩa xã hội", "Chủ nghĩa độc quyền Nhà nước"], "a": 0, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Mục đích nghiên cứu của Kinh tế chính trị Mác - Lênin là nhằm phát hiện ra:", "o": ["Các quy luật kinh tế", "Giá trị của hàng hóa", "Giá trị của tiền", "Mối quan hệ tỷ lệ giữa hàng và tiền"], "a": 0, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Hãy chọn phương án đúng về đặc điểm của quy luật kinh tế:", "o": ["Mang tính khách quan", "Mang tính chủ quan", "Phát huy tác dụng thông qua hoạt động kinh tế của con người", "Đáp án A và C"], "a": 3, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Kinh tế chính trị cổ điển Anh quan niệm đối tượng nghiên cứu của kinh tế chính trị là:", "o": ["Lĩnh vực sản xuất", "Lĩnh vực lưu thông", "Quan hệ sản xuất", "Lực lượng sản xuất"], "a": 0, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Kinh tế chính trị Mác - Lênin quan niệm đối tượng nghiên cứu của kinh tế chính trị là:", "o": ["Lĩnh vực sản xuất", "Lĩnh vực lưu thông", "Quan hệ sản xuất và trao đổi", "Lực lượng sản xuất"], "a": 2, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Tiền đề tư tưởng, lý luận trực tiếp cho sự ra đời của Kinh tế chính trị Mác - Lênin là:", "o": ["Chủ nghĩa trọng nông", "Chủ nghĩa trọng thương", "Kinh tế chính trị cổ điển Anh", "Kinh tế chính trị tân cổ điển"], "a": 2, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Tạo dựng cơ sở khoa học lý luận để sinh viên nhận diện và định vị vai trò, trách nhiệm của mình, từ đó xây dựng tư duy và tầm nhìn, kỹ năng thực hiện các hoạt động kinh tế - xã hội là phản ánh chức năng nào của kinh tế chính trị:", "o": ["Chức năng nhận thức", "Chức năng thực tiễn", "Chức năng tư tưởng", "Chức năng phương pháp luận"], "a": 2, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Lý luận kinh tế chính trị của C. Mác được thể hiện tập trung và cô đọng nhất trong tác phẩm nào?", "o": ["Hệ tư tưởng Đức", "Của cải của các dân tộc", "Tình cảnh giai cấp công nhân Anh", "Tư bản"], "a": 3, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Chọn phương án đúng về quy luật kinh tế và chính sách kinh tế:", "o": ["Quy luật kinh tế là cơ sở của chính sách kinh tế", "Chính sách kinh tế là hoạt động chủ quan của nhà nước trên cơ sở nhận thức và vận dụng các quy luật khách quan", "Quy luật kinh tế và chính sách kinh tế đều phụ thuộc vào các điều kiện khách quan", "Đáp án A, B và C"], "a": 3, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Cung cấp nền tảng lý luận khoa học cho việc nghiên cứu các khoa học kinh tế khác là phản ánh chức năng nào của kinh tế chính trị:", "o": ["Chức năng nhận thức", "Chức năng thực tiễn", "Chức năng tư tưởng", "Chức năng phương pháp luận"], "a": 3, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Góp phần xây dựng thế giới quan khoa học cho việc xây dựng xã hội dân chủ, công bằng, văn minh là phản ánh chức năng nào của kinh tế chính trị:", "o": ["Chức năng nhận thức", "Chức năng thực tiễn", "Chức năng tư tưởng", "Chức năng phương pháp luận"], "a": 1, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}, {"q": "Cung cấp những tri thức để hiểu được bản chất các hiện tượng, các quá trình kinh tế là phản ánh chức năng nào của kinh tế chính trị:", "o": ["Chức năng nhận thức", "Chức năng thực tiễn", "Chức năng tư tưởng", "Chức năng phương pháp luận"], "a": 0, "cat": "Chương 1: Đối tượng, phương pháp nghiên cứu và chức năng của Kinh tế Chính trị Mác – Lênin"}]}, {"id": 2, "title": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường", "questions": [{"q": "Trong 8 giờ (một ngày lao động), một công nhân sản xuất được 32 sản phẩm. Hỏi giá trị của một đơn vị sản phẩm là bao nhiêu?", "o": ["0,25 giờ/1 sản phẩm", "0,5 giờ/1 sản phẩm", "0,75 giờ/1 sản phẩm", "8 giờ/1 sản phẩm"], "a": 0, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Cạnh tranh giữa các ngành là:", "o": ["Cạnh tranh giữa các chủ thể kinh doanh trong cùng một ngành, cùng sản xuất một loại hàng hóa", "Cạnh tranh giữa các chủ thể sản xuất kinh doanh giữa các ngành khác nhau", "Cạnh tranh giữa những người mua cùng một loại hàng hóa", "Cạnh tranh giữa những người mua và bán hàng hóa giữa các ngành khác nhau và cùng ngành"], "a": 1, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Trong các trường hợp sau đây, trường hợp nào không đáp ứng yêu cầu của quy luật giá trị:", "o": ["Hao phí lao động cá biệt > hao phí lao động xã hội", "Hao phí lao động cá biệt ≤ hao phí lao động xã hội", "Hao phí lao động cá biệt = hao phí lao động xã hội", "Cả đáp án B và C"], "a": 0, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Theo yêu cầu của quy luật giá trị, việc sản xuất và trao đổi hàng hóa phải được tiến hành trên cơ sở:", "o": ["Ích lợi của hàng hóa", "Hao phí lao động xã hội cần thiết", "Hao phí lao động cá nhân người sản xuất", "Hao phí lao động cá nhân và xã hội cần thiết"], "a": 1, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Lao động trừu tượng của người sản xuất hàng hóa tạo ra thuộc tính nào của hàng hóa?", "o": ["Giá trị và giá trị sử dụng của hàng hóa", "Giá trị sử dụng của hàng hóa", "Giá trị trao đổi của hàng hóa", "Giá trị của hàng hóa"], "a": 3, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Điền vào chỗ trống: Trong cùng một đơn vị thời gian lao động như nhau, lao động giản đơn tạo ra ... giá trị so với lao động phức tạp:", "o": ["Ít hơn", "Nhiều hơn", "Ngang bằng", "Chưa xác định được"], "a": 0, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Những nhân tố tác động tỷ lệ thuận với lượng giá trị của một đơn vị hàng hóa là:", "o": ["Năng suất lao động", "Mức độ phức tạp của lao động", "Cường độ lao động", "Đáp án A và C"], "a": 1, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Dịch vụ khác với hàng hóa thông thường ở:", "o": ["Dịch vụ là hàng hóa vô hình", "Dịch vụ là hàng hóa không thể cất trữ", "Dịch vụ sản xuất và tiêu dùng diễn ra đồng thời", "Tất cả các đáp án"], "a": 3, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Bình thường trong 8 giờ, một công nhân sản xuất được 16 sản phẩm. Nếu cường độ lao động tăng gấp hai, tổng giá trị sản phẩm và giá trị một đơn vị sản phẩm là bao nhiêu? (Ngày lao động không đổi)", "o": ["Tổng giá trị 8 giờ và giá trị 1 đơn vị là 0,25 giờ", "Tổng giá trị 8 giờ và giá trị 1 đơn vị là 0,5 giờ", "Tổng giá trị 16 giờ và giá trị 1 đơn vị là 0,5 giờ", "Tổng giá trị 16 giờ và giá trị 1 đơn vị là 0,25 giờ"], "a": 1, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Quy luật kinh tế cơ bản của sản xuất hàng hóa là:", "o": ["Quy luật giá trị", "Quy luật cung - cầu", "Quy luật lưu thông tiền tệ", "Tất cả các đáp án"], "a": 0, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Một trong những khuyết tật của nền kinh tế thị trường là:", "o": ["Luôn tiềm ẩn những rủi ro khủng hoảng", "Tạo động lực mạnh mẽ hình thành các ý tưởng mới của các chủ thể kinh tế", "Luôn tiềm ẩn những lợi ích vật chất", "Thực hiện tốt nhất lợi thế của các chủ thể kinh tế"], "a": 0, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Nhân tố quyết định giá cả hàng hóa là:", "o": ["Giá trị hàng hóa", "Thị hiếu", "Cạnh tranh", "Ích lợi của hàng hóa"], "a": 0, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Dưới tác động của quy luật cung cầu, khi cung nhỏ hơn cầu thì:", "o": ["Hàng hóa dư thừa", "Giá cả cao hơn giá trị", "Cường độ lao động", "Đáp án B và C"], "a": 1, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Để hạn chế tiêu cực và thúc đẩy tác động tích cực của quy luật giá trị đối với nền kinh tế có sản xuất hàng hóa thì cần có:", "o": ["Sự điều tiết của Nhà nước", "Sự tích cực của người mua", "Sự tham gia trách nhiệm của người bán", "Tất cả các đáp án"], "a": 3, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Yếu tố quyết định thành bại của người sản xuất là:", "o": ["Khả năng cạnh tranh doanh nghiệp", "Các chủ thể trung gian trên thị trường", "Sức mua người tiêu dùng", "Nhà nước"], "a": 0, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Trong lưu thông, quy luật giá trị điều tiết hàng hóa từ nơi:", "o": ["Giá cả cao đến giá cả thấp", "Giá cả thấp đến nơi giá cả cao", "Cung nhỏ hơn cầu đến nơi cung lớn cầu", "Hàng hóa khan hiếm đến nơi hàng hóa dư thừa"], "a": 1, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Cạnh tranh trong nội bộ ngành là:", "o": ["Cạnh tranh giữa các chủ thể kinh doanh trong cùng một ngành, cùng sản xuất một loại hàng hóa", "Cạnh tranh giữa các chủ thể sản xuất kinh doanh giữa các ngành khác nhau", "Cạnh tranh giữa những người mua cùng một loại hàng hóa", "Cạnh tranh giữa những người mua và bán hàng hóa trong cùng một ngành"], "a": 0, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Lao động cụ thể phản ánh tính chất nào của lao động sản xuất hàng hóa?", "o": ["Tính xã hội", "Tính cụ thể", "Tính tư nhân", "Tính trừu tượng"], "a": 2, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Lao động phản ánh tính chất xã hội của lao động sản xuất hàng hóa là:", "o": ["Lao động trừu tượng", "Lao động cụ thể", "Lao động cần thiết", "Lao động thặng dư"], "a": 0, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Dưới tác động của quy luật cung cầu, khi cung lớn hơn cầu thì:", "o": ["Giá cả thấp hơn giá trị", "Giá cả cao hơn giá trị", "Giá cả bằng giá trị", "Giá trị thấp hơn giá cả"], "a": 0, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Những nhân tố tác động tỷ lệ nghịch với lượng giá trị của một đơn vị hàng hóa là:", "o": ["Năng suất lao động", "Mức độ phức tạp của lao động", "Cường độ lao động", "Đáp án A và C"], "a": 0, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Điều kiện để ra đời của sản xuất hàng hóa là:", "o": ["Phân công lao động xã hội", "Sự tách biệt về kinh tế giữa các chủ thể sản xuất", "Phân công lao động xã hội và sự tách biệt về kinh tế của các chủ thể sản xuất", "Phân công lao động xã hội và sự tách biệt về xã hội của các chủ thể sản xuất"], "a": 2, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Sản phẩm do những người sản xuất hàng hóa riêng biệt tạo ra không phù hợp với nhu cầu xã hội là biểu hiện của mâu thuẫn giữa:", "o": ["Lao động giản đơn và lao động phức tạp", "Lao động cụ thể và lao động trừu tượng của người sản xuất hàng hóa", "Năng suất lao động và cường độ lao động", "Giá cả và giá trị của hàng hóa"], "a": 1, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Người mua hàng hóa, dịch vụ trên thị trường để thỏa mãn nhu cầu tiêu dùng là ai?", "o": ["Người sản xuất", "Nhà nước", "Người tiêu dùng", "Tất cả các đáp án"], "a": 2, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Hình thức biểu hiện bằng tiền của giá trị hàng hóa là:", "o": ["Giá trị trao đổi", "Giá trị thặng dư", "Giá cả", "Giá trị sử dụng"], "a": 2, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Dưới tác động của quy luật cung cầu, khi cung lớn hơn cầu thì: (câu 26)", "o": ["Giá cả thấp hơn giá trị", "Giá cả cao hơn giá trị", "Giá cả bằng giá trị", "Giá trị thấp hơn giá cả"], "a": 0, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Kết quả cạnh tranh trong nội bộ ngành là hình thành:", "o": ["Giá cả hàng hóa", "Giá trị thị trường hàng hóa", "Giá trị trao đổi", "Tất cả các đáp án"], "a": 1, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Chức năng nào của tiền mà tiền mặt không có?", "o": ["Thước đo giá trị", "Phương tiện cất trữ", "Phương tiện lưu thông", "Đáp án A và B"], "a": 3, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Một trong những đặc trưng phổ biến của kinh tế thị trường là:", "o": ["Nền kinh tế nhà nước", "Nền kinh tế đóng", "Nền kinh tế tự cung, tự cấp", "Nền kinh tế mở"], "a": 3, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}, {"q": "Tác động của quy luật giá trị là:", "o": ["Điều tiết sản xuất và lưu thông hàng hóa", "Kích thích cải tiến kỹ thuật, hợp lý hóa sản xuất, tăng năng suất lao động", "Phân hóa người sản xuất thành người giàu, người nghèo", "Tất cả các đáp án"], "a": 3, "cat": "Chương 2: Hàng hóa, thị trường và vai trò của các chủ thể tham gia thị trường"}]}, {"id": 3, "title": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường", "questions": [{"q": "Sức lao động trở thành hàng hóa một cách phổ biến:", "o": ["Trong nền sản xuất hàng hóa tư bản chủ nghĩa", "Trong nền sản xuất tự cấp, tự túc và hàng hóa giản đơn", "Trong xã hội chiếm hữu nô lệ", "Trong xã hội phong kiến"], "a": 0, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Cơ cấu giá trị hàng hóa: 1200c + 400v + 600m = 2200. Tính tỷ suất giá trị thặng dư (m' = m/v × 100%):", "o": ["100%", "200%", "150%", "250%"], "a": 2, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Căn cứ phân chia tư bản thành tư bản cố định và tư bản lưu động là:", "o": ["Vai trò trong việc sản xuất giá trị thặng dư", "Vai trò trong việc sản xuất giá trị hàng hóa", "Phương thức chu chuyển giá trị của tư bản sản xuất vào giá trị sản phẩm", "Phương thức tích lũy tư bản"], "a": 2, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Nguồn gốc duy nhất của tích lũy tư bản là:", "o": ["Doanh thu của doanh nghiệp", "Giá trị thặng dư", "Lợi nhuận doanh nghiệp", "Giá trị hàng hóa"], "a": 1, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Tư bản đầu tư là 9.000.000.000 vnđ, trong đó bỏ vào tư liệu sản xuất là 7.800.000.000 vnđ. Số công nhân là 200 người, tỷ suất giá trị thặng dư là 200%. Giá trị mới do 1 công nhân tạo ra là bao nhiêu?", "o": ["9.000.000 vnđ", "16.000.000 vnđ", "18.000.000 vnđ", "12.000.000 vnđ"], "a": 2, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Chọn các ý không đúng về các cặp phạm trù tư bản:", "o": ["Chia tư bản thành tư bản bất biến và tư bản khả biến để tìm nguồn gốc giá trị thặng dư", "Chia tư bản thành tư bản cố định và tư bản lưu động để biết phương thức chuyển giá trị vào sản phẩm", "Tư bản cố định cũng là tư bản bất biến, tư bản lưu động cũng là tư bản khả biến", "Cả A, B đều đúng"], "a": 3, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Trong phương pháp sản xuất giá trị thặng dư tuyệt đối, giới hạn tối thiểu của ngày lao động là bao nhiêu?", "o": ["Đủ bù đắp giá trị sức lao động của công nhân", "Bằng thời gian lao động cần thiết", "Do nhà tư bản quy định", "Lớn hơn thời gian lao động cần thiết"], "a": 1, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Vai trò của tư bản bất biến là:", "o": ["Bộ phận trực tiếp tạo ra giá trị thặng dư", "Bộ phận trực tiếp tạo ra hàng hóa", "Bộ phận trực tiếp tạo ra giá trị sử dụng", "Bộ phận gián tiếp tạo ra giá trị thặng dư"], "a": 3, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Tìm ý sai. Cấu thành tư bản bao gồm:", "o": ["Tư bản sử dụng và tư bản tiêu dùng", "Tư bản bất biến và tư bản khả biến", "Tư bản cố định và tư bản lưu động", "Tư bản tiền tệ, tư bản sản xuất và tư bản hàng hóa"], "a": 0, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Bản chất của tiền công là:", "o": ["Phần giá trị mới của hàng hóa", "Giá cả của hàng hóa sức lao động", "Giá cả của lao động", "Cả A, B, C"], "a": 1, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Điều kiện để sức lao động trở thành hàng hóa là:", "o": ["Người lao động không được tự do về thân thể và có đủ các tư liệu sản xuất cần thiết", "Người lao động được tự do về thân thể và không có đủ các tư liệu sản xuất cần thiết", "Người lao động chỉ cần có sức khỏe", "Người lao động có đủ các tư liệu sản xuất cần thiết"], "a": 1, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Nhân tố làm giảm quy mô tích lũy tư bản là:", "o": ["Tư bản ứng trước tăng", "Tỷ suất giá trị thặng dư tăng", "Năng suất lao động tăng", "Năng suất lao động giảm"], "a": 3, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Giá trị hàng hoá sức lao động gồm:", "o": ["Giá trị các tư liệu tiêu dùng để tái sản xuất sức lao động của công nhân và nuôi gia đình anh ta", "Chi phí để thoả mãn nhu cầu văn hoá, tinh thần", "Chi phí đào tạo người lao động", "Tất cả các đáp án"], "a": 3, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Tính số vòng chu chuyển tư bản biết tư bản quay 3 tháng được 1 vòng (trong 12 tháng):", "o": ["1", "2", "3", "4"], "a": 3, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Vai trò của máy móc trong quá trình tạo ra giá trị thặng dư, chọn ý đúng:", "o": ["Máy móc và sức lao động đều tạo ra giá trị thặng dư", "Máy móc là nguồn gốc của giá trị thặng dư", "Máy móc là yếu tố quyết định để tạo ra giá trị thặng dư", "Máy móc là tiền đề vật chất cho việc tạo ra giá trị thặng dư"], "a": 3, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Tỷ suất giá trị thặng dư (m') bằng bao nhiêu khi ngày lao động 8 giờ và lao động thặng dư là 6 giờ? (m' = t_td/t_cn × 100%)", "o": ["300%", "75%", "400%", "200%"], "a": 0, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Nhân tố làm tăng tỷ suất lợi nhuận của nhà tư bản là:", "o": ["Tăng tốc độ chu chuyển của tư bản", "Tăng cấu tạo hữu cơ của tư bản", "Tăng lượng tư bản bất biến", "Tăng chi phí sản xuất tư bản chủ nghĩa"], "a": 0, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Sản xuất giá trị thặng dư tuyệt đối và giá trị thặng dư tương đối giống nhau ở điểm nào?", "o": ["Đều làm cho công nhân tốn sức lao động nhiều hơn", "Đều làm tăng tỷ suất giá trị thặng dư", "Đều làm giảm giá trị sức lao động của công nhân", "Đều giảm thời gian lao động tất yếu"], "a": 0, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Giá trị thặng dư siêu ngạch còn được gọi là:", "o": ["Hình thức biến tướng của giá trị thặng dư tuyệt đối", "Hình thức biến tướng của giá trị thặng dư tương đối", "Hình thức biểu hiện của giá trị thặng dư tương đối", "Hình thức biến tướng của giá trị tương đối"], "a": 1, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Nguồn gốc của tích tụ tư bản là:", "o": ["Các tư bản công nghiệp trong xã hội", "Các tư bản cá biệt có sẵn trong xã hội", "Các tư bản thương nghiệp trong xã hội", "Giá trị thặng dư"], "a": 3, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Tính tư bản cố định và lưu động: Giá trị nguyên vật liệu 50tr, hao mòn máy móc 20tr, hao mòn nhà xưởng 5tr, thuê công nhân 40tr:", "o": ["25tr và 45tr", "75tr và 40tr", "25tr và 90tr", "20tr và 95tr"], "a": 2, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Khi xem xét phương pháp sản xuất giá trị thặng dư tuyệt đối, những ý nào dưới đây không đúng?", "o": ["Giá trị sức lao động không đổi", "Thời gian lao động cần thiết thay đổi", "Ngày lao động thay đổi", "Thời gian lao động thặng dư thay đổi"], "a": 1, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Tỷ suất lợi nhuận bình quân là:", "o": ["Tỷ suất lợi nhuận cao giữa các ngành", "Tỷ suất lợi nhuận độc quyền giữa các ngành", "Tỷ suất lợi nhuận trung bình trong cùng một ngành", "Tỷ suất lợi nhuận trung bình giữa các ngành"], "a": 3, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Địa tô tuyệt đối là địa tô mà:", "o": ["Nhà tư bản đi thuê đất phải trả cho chủ đất khi thuê ruộng đất xấu", "Nhà tư bản đi thuê đất không phải trả cho chủ đất, dù thuê bất kỳ loại ruộng đất nào", "Nhà tư bản đi thuê đất phải trả cho chủ đất, dù thuê bất kỳ loại ruộng đất nào", "Nhà tư bản trả cho chủ đất đúng giá trị sức lao động"], "a": 2, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Nếu nhà tư bản trả công theo đúng giá trị sức lao động thì:", "o": ["Không còn bóc lột m", "Bị hòa vốn", "Bị lỗ vốn", "Vẫn còn bóc lột giá trị thặng dư"], "a": 3, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}, {"q": "Chọn định nghĩa chính xác về tư bản:", "o": ["Tư bản là tiền và TLSX của nhà tư bản để tạo ra giá trị thặng dư", "Tư bản là giá trị đem lại giá trị thặng dư bằng cách bóc lột lao động làm thuê", "Tư bản là giá trị mang lại giá trị thặng dư", "Tư bản là tiền để ra tiền"], "a": 1, "cat": "Chương 3: Giá trị thặng dư trong nền kinh tế thị trường"}]}, {"id": 4, "title": "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường", "questions": [{"q": "Chủ nghĩa tư bản độc quyền nhà nước ra đời nhằm mục đích:", "o": ["Phục vụ lợi ích cho nhân dân lao động", "Phục vụ lợi ích cho các tổ chức độc quyền tư nhân", "Cứu nguy cho chủ nghĩa tư bản", "Đáp án B và C"], "a": 3, "cat": "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường"}, {"q": "Trong cơ chế của chủ nghĩa tư bản độc quyền nhà nước:", "o": ["Tổ chức độc quyền phụ thuộc vào nhà nước tư sản", "Nhà nước tư sản phụ thuộc vào tổ chức độc quyền", "Nhà nước tư sản không phụ thuộc vào tổ chức độc quyền", "Nhà nước tư sản phụ thuộc vào quần chúng nhân dân lao động"], "a": 1, "cat": "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường"}, {"q": "Vai trò tích cực của chủ nghĩa tư bản:", "o": ["Thực hiện tư nhân hóa sản xuất", "Duy trì sự lệ thuộc của các nước đang phát triển vào các nước tư bản phát triển", "Thực hiện xã hội hóa sản xuất", "Làm giàu và thống trị thế giới"], "a": 2, "cat": "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường"}, {"q": "Trong chủ nghĩa tư bản ngày nay, các trùm tư bản tài chính thống trị nền kinh tế thông qua:", "o": ["\"Chế độ tham dự\"", "\"Chế độ ủy nhiệm\"", "Chế độ đảm bảo", "Đáp án A và B"], "a": 3, "cat": "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường"}, {"q": "Xuất khẩu tư bản trong chủ nghĩa tư bản ngày nay, chủ yếu theo hướng:", "o": ["Nước tư bản phát triển xuất khẩu tư bản sang các nước kém phát triển", "Các nước tư bản phát triển xuất khẩu lẫn nhau", "Các nước kém phát triển xuất khẩu lẫn nhau", "Cả A và B"], "a": 3, "cat": "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường"}, {"q": "Chủ thể xuất khẩu tư bản là:", "o": ["Chỉ có nhà nước tư sản", "Chỉ có tư bản tư nhân", "Cả nhà nước tư sản và tư bản tư nhân", "Không đáp án nào đúng"], "a": 2, "cat": "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường"}, {"q": "FDI là:", "o": ["Hình thức đầu tư trực tiếp", "Hình thức đầu tư gián tiếp", "Đầu tư trong nước", "Không đáp án nào đúng"], "a": 0, "cat": "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường"}, {"q": "Trong chủ nghĩa tư bản, bản chất của độc quyền nhà nước là hình thức vận động mới của:", "o": ["Phương thức sản xuất tư bản chủ nghĩa", "Kết cấu hạ tầng tư bản chủ nghĩa", "Quan hệ sản xuất tư bản chủ nghĩa", "Lực lượng sản xuất tư bản chủ nghĩa"], "a": 2, "cat": "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường"}, {"q": "Người nghiên cứu sâu về chủ nghĩa tư bản độc quyền là:", "o": ["C. Mác", "Ph. Ăngghen", "Mác và Ph. Ăngghen", "V.I. Lênin"], "a": 3, "cat": "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường"}, {"q": "Sự ra đời của tư bản tài chính là kết quả của sự phát triển:", "o": ["Độc quyền ngân hàng", "Sự phát triển của thị trường tài chính", "Độc quyền công nghiệp", "Quá trình xâm nhập, liên kết độc quyền ngân hàng với độc quyền công nghiệp"], "a": 3, "cat": "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường"}, {"q": "Các tổ chức độc quyền sử dụng giá cả độc quyền để:", "o": ["Chiếm đoạt giá trị thặng dư của người khác", "Khống chế thị trường", "Gây thiệt hại cho các đối thủ cạnh tranh", "Củng cố vai trò tổ chức độc quyền"], "a": 0, "cat": "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường"}, {"q": "Sự xuất hiện của tư bản độc quyền sẽ:", "o": ["Triệt tiêu cạnh tranh", "Kìm hãm sự tiến bộ kỹ thuật", "Kìm hãm sản xuất lớn, hiện đại", "Thúc đẩy cạnh tranh trong sản xuất và trao đổi hàng hóa"], "a": 3, "cat": "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường"}, {"q": "Trong thời kỳ chủ nghĩa tư bản độc quyền:", "o": ["Mâu thuẫn giữa giai cấp tư sản và vô sản không thay đổi", "Mâu thuẫn giữa giai cấp tư sản và vô sản có phần dịu đi", "Mâu thuẫn giữa giai cấp tư sản và vô sản ngày càng sâu sắc hơn", "Cả A, B và C"], "a": 2, "cat": "Chương 4: Cạnh tranh và độc quyền trong nền kinh tế thị trường"}]}, {"id": 5, "title": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam", "questions": [{"q": "Trong nền kinh tế thị trường định hướng XHCN ở Việt Nam, thành phần kinh tế nào giữ vai trò chủ đạo?", "o": ["Kinh tế tư nhân", "Kinh tế nhà nước", "Kinh tế có vốn đầu tư nước ngoài", "Kinh tế tập thể"], "a": 1, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Trong nền kinh tế thị trường định hướng XHCN ở Việt Nam, mục tiêu xuyên suốt là:", "o": ["Tăng trưởng kinh tế nhanh nhất có thể bất chấp hậu quả xã hội", "Dân giàu, nước mạnh, dân chủ, công bằng, văn minh", "Tư nhân hóa hoàn toàn nền kinh tế", "Xóa bỏ hoàn toàn sở hữu tư nhân"], "a": 1, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Sự hình thành kinh tế thị trường là tính tất yếu khách quan ở Việt Nam vì:", "o": ["Có sự quản lý của Nhà nước XHCN Việt Nam", "Các điều kiện cho sự hình thành và phát triển kinh tế tự nhiên đang tồn tại khách quan", "Có sự lãnh đạo của Đảng Cộng sản Việt Nam", "Các điều kiện cho sự hình thành và phát triển kinh tế thị trường đang tồn tại khách quan"], "a": 3, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Những hình thức phân phối phản ánh định hướng XHCN của nền kinh tế thị trường là:", "o": ["Phân phối theo lao động và hiệu quả kinh tế, phân phối theo phúc lợi", "Phân phối theo vốn góp, phân phối theo kinh tế, phân phối theo vốn góp", "Phân phối theo lao động và hiệu quả kinh tế, phân phối vốn góp", "Tất cả các đáp án"], "a": 0, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Nhà nước bảo đảm hài hòa các lợi ích kinh tế bằng những công cụ:", "o": ["Kinh tế", "Hành chính", "Giáo dục, luật pháp", "Cả A, B và C"], "a": 3, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Trong nền kinh tế thị trường định hướng XHCN ở Việt Nam, thành phần kinh tế nào được xác định là \"một động lực quan trọng\" của nền kinh tế?", "o": ["Kinh tế nhà nước", "Kinh tế tập thể", "Kinh tế tư nhân", "Kinh tế có vốn đầu tư nước ngoài"], "a": 2, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Cơ sở kinh tế của nền kinh tế thị trường định hướng XHCN ở Việt Nam là gì?", "o": ["Chế độ sở hữu toàn dân về tư liệu sản xuất", "Chế độ công hữu về tư liệu sản xuất chủ yếu", "Nền kinh tế hàng hóa nhiều thành phần", "Quan hệ sản xuất dựa trên chế độ sở hữu hỗn hợp"], "a": 1, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Quản lý của nhà nước trong kinh tế thị trường định hướng XHCN và kinh tế thị trường tư bản chủ nghĩa khác nhau là do:", "o": ["Mục tiêu phát triển kinh tế - xã hội", "Mục tiêu phát triển kinh tế - chính trị", "Bản chất của nhà nước", "Tất cả các đáp án"], "a": 3, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Trong các quan hệ lợi ích kinh tế:", "o": ["Mâu thuẫn với nhau", "Thống nhất với nhau", "Vừa thống nhất vừa mâu thuẫn với nhau", "Không có mối quan hệ nào"], "a": 2, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Kinh tế thị trường nói chung và kinh tế thị trường định hướng XHCN quan hệ với nhau thế nào?", "o": ["Nội dung giống nhau, chỉ khác nhau về bản chất nhà nước", "Khác nhau hoàn toàn", "Giống nhau về bản chất chỉ khác về hình thức", "Vừa có đặc điểm chung vừa có đặc điểm riêng"], "a": 3, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Một trong những nguyên nhân khiến \"lợi ích nhóm\" tiêu cực hình thành là:", "o": ["Sự phát triển mạnh mẽ của kinh tế tư nhân", "Sự tham gia của công chức, viên chức hoặc cơ quan công quyền lạm dụng quyền lực để phục vụ lợi ích cá nhân cục bộ", "Sự cạnh tranh lành mạnh giữa các doanh nghiệp", "Chính sách an sinh xã hội quá cao"], "a": 1, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Trong các hình thức lợi ích kinh tế, lợi ích nào đóng vai trò là cơ sở, nền tảng và là động lực trực tiếp của các chủ thể kinh tế cá biệt?", "o": ["Lợi ích xã hội", "Lợi ích tập thể", "Lợi ích cá nhân", "Lợi ích giai cấp"], "a": 2, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Vai trò của lợi ích kinh tế đối với các chủ thể kinh tế - xã hội là:", "o": ["Động lực trực tiếp của các chủ thể và hoạt động chính trị", "Động lực trực tiếp của các chủ thể và hoạt động kinh tế - xã hội", "Động lực trực tiếp của các chủ thể và hoạt động xã hội", "Động lực trực tiếp của các chủ thể và hoạt động chính trị - xã hội"], "a": 1, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Để điều hòa lợi ích giữa cá nhân - doanh nghiệp - xã hội, Nhà nước không cần:", "o": ["Phát triển lực lượng sản xuất", "Chính sách phân phối thu nhập", "Phát triển khoa học - công nghệ", "Hệ thống ngân hàng"], "a": 3, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Điền vào chỗ trống: \"Lợi ích kinh tế là động lực … của các chủ thể và hoạt động kinh tế - xã hội\":", "o": ["Trực tiếp", "Trước mắt", "Gián tiếp", "Chủ yếu"], "a": 0, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Lợi ích kinh tế của các chủ thể kinh tế là:", "o": ["Kìm hãm sự phát triển các lợi ích khác", "Chỉ phục vụ nhu cầu các chủ thể kinh tế", "Cơ sở thúc đẩy sự phát triển các lợi ích khác", "Giải quyết việc làm cho người dân"], "a": 2, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Nhà nước có vai trò gì trong bảo đảm hài hòa các quan hệ lợi ích kinh tế:", "o": ["Duy trì trật tự xã hội", "Khuyến khích các quan hệ lợi ích kinh tế tự do hoạt động", "Cải cách chế độ tiền lương", "Bảo vệ lợi ích hợp pháp, tạo môi trường thuận lợi cho hoạt động tìm kiếm lợi ích của các chủ thể kinh tế"], "a": 3, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Về quan hệ phân phối, nền kinh tế thị trường định hướng XHCN ở Việt Nam thực hiện phân phối chủ yếu theo:", "o": ["Nhu cầu của người lao động", "Kết quả lao động, hiệu quả kinh tế, mức đóng góp vốn cùng các nguồn lực khác và thông qua hệ thống an sinh xã hội, phúc lợi xã hội", "Cào bằng, mọi người hưởng như nhau", "Chỉ dựa trên vốn góp"], "a": 1, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}, {"q": "Đâu không phải là đặc trưng phổ biến của nền kinh tế thị trường?", "o": ["Thị trường đóng vai trò quyết định trong việc phân bổ các nguồn lực xã hội", "Nhiều hình thức sở hữu và nhiều thành phần kinh tế", "Nhà nước kiểm soát, quyết định việc sử dụng các yếu tố sản xuất và phân phối thu nhập", "Cạnh tranh trên thị trường là môi trường và động lực thúc đẩy hoạt động kinh tế"], "a": 2, "cat": "Chương 5: Kinh tế thị trường định hướng XHCN và các quan hệ lợi ích kinh tế ở Việt Nam"}]}, {"id": 6, "title": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam", "questions": [{"q": "Nội dung nào sau đây không phải là đặc điểm chủ yếu của quá trình công nghiệp hóa, hiện đại hóa ở Việt Nam?", "o": ["Công nghiệp hóa, hiện đại hóa theo định hướng XHCN, thực hiện mục tiêu \"dân giàu, nước mạnh, dân chủ, công bằng, văn minh\"", "Công nghiệp hóa, hiện đại hóa gắn với phát triển kinh tế tri thức", "Công nghiệp hóa, hiện đại hóa trong điều kiện kinh tế thị trường định hướng XHCN", "Công nghiệp hóa, hiện đại hóa trong bối cảnh hạn chế hợp tác, hội nhập kinh tế quốc tế"], "a": 3, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Trong nền kinh tế tri thức, tri thức đóng vai trò là:", "o": ["Lực lượng sản xuất trực tiếp", "Lực lượng sản xuất thứ yếu", "Quan hệ sản xuất đặc trưng", "Quan hệ sản xuất thứ yếu"], "a": 0, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Tổ chức nào sau đây không phải là biểu hiện của xu thế toàn cầu hóa?", "o": ["Diễn đàn hợp tác Á - Âu (ASEM)", "Hiệp định thương mại tự do (ASEAN)", "Tổ chức thương mại tự do Bắc Mỹ (NAFTA)", "Tổ chức hiệp ước quân sự Bắc Đại Tây Dương (NATO)"], "a": 3, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Hình thức hội nhập kinh tế quốc tế là:", "o": ["Ngoại thương", "Đầu tư quốc tế", "Hợp tác quốc tế và dịch vụ thu ngoại tệ", "Cả A, B, C"], "a": 3, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Xu thế toàn cầu hóa là hệ quả của:", "o": ["Sự phát triển nhanh chóng của quan hệ thương mại quốc tế", "Sự sáp nhập các công ty thành các tập đoàn lớn", "Cách mạng khoa học công nghệ", "Sự ra đời các công ty đa quốc gia"], "a": 2, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Cách mạng công nghiệp lần thứ nhất khởi phát đầu tiên ở quốc gia nào?", "o": ["Anh", "Mỹ", "Đức", "Pháp"], "a": 0, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Vai trò của cách mạng công nghiệp đối với phát triển là:", "o": ["Thúc đẩy lực lượng sản xuất phát triển", "Thúc đẩy hoàn thiện quan hệ sản xuất", "Thúc đẩy đổi mới phương thức quản trị phát triển", "Cả A, B, C"], "a": 3, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Ngày nay các nước đi sau muốn rút ngắn thời gian thực hiện quá trình công nghiệp hóa, hiện đại hóa cần chú ý:", "o": ["Khai thác tốt lợi thế trong nước và tận dụng, tiếp thu những nguồn lực, thành tựu khoa học, công nghệ mới của các nước tiên tiến", "Khai thác triệt để, tối đa các nguồn lực trong nước, không nên tiếp nhận chuyển giao từ các nước khác", "Chủ trọng tiếp nhận chuyển giao công nghệ từ các nước tiên tiến, chỉ dựa vào nguồn lực các nước phát triển", "Dựa vào nguồn lực vốn có của quốc gia, thực hiện các bước đi tuần tự"], "a": 0, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Chiến lược công nghiệp hóa của Nhật Bản và các nước công nghiệp mới (NICs):", "o": ["Đẩy mạnh xuất khẩu, thay thế hàng nhập khẩu", "Tận dụng lợi thế khoa học của các nước đi trước", "Phát huy nguồn lực trong nước và thu hút nguồn lực từ bên ngoài", "Tất cả các đáp án"], "a": 3, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Một trong những đặc điểm chủ yếu của công nghiệp hóa, hiện đại hóa ở Việt Nam là:", "o": ["Công nghiệp hóa, hiện đại hóa gắn với kinh tế tri thức", "Công nghiệp hóa, hiện đại hóa gắn với phát triển kinh tế công nghiệp", "Công nghiệp hóa, hiện đại hóa gắn với phát triển kinh tế nông nghiệp", "Công nghiệp hóa, hiện đại hóa gắn với phát triển dịch vụ"], "a": 0, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Công nghiệp hóa, hiện đại hóa ở Việt Nam có đặc điểm chủ yếu:", "o": ["Trong điều kiện kinh tế thị trường định hướng tư bản chủ nghĩa", "Trong điều kiện kinh tế thị trường định hướng xã hội chủ nghĩa", "Trong điều kiện kinh tế chậm phát triển", "Trong điều kiện kinh tế thị trường đã phát triển cao"], "a": 1, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Trong hệ thống các cơ cấu kinh tế, thì cơ cấu nào giữ vị trí quan trọng nhất?", "o": ["Cơ cấu ngành kinh tế", "Cơ cấu các vùng", "Cơ cấu các thành phần kinh tế", "Cơ cấu Đặc khu kinh tế"], "a": 0, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Điền vào chỗ trống: Công nghiệp hóa là quá trình chuyển đổi nền sản xuất xã hội từ dựa trên … là chính sang nền sản xuất xã hội dựa chủ yếu trên lao động bằng máy móc nhằm tạo ra năng suất lao động xã hội cao:", "o": ["Máy móc hiện đại", "Lao động thủ công", "Khoa học - kỹ thuật", "Lao động trí óc"], "a": 1, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "\"Chính phủ điện tử\" là khái niệm xuất hiện từ cuộc cách mạng công nghiệp lần thứ mấy?", "o": ["Lần thứ nhất", "Lần thứ hai", "Lần thứ ba", "Lần thứ tư"], "a": 2, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Thách thức lớn nhất mà Việt Nam phải đối mặt với toàn cầu hóa là:", "o": ["Sự chênh lệch về trình độ khi tham gia hội nhập", "Sự cạnh tranh quyết liệt từ thị trường thế giới", "Sự bất bình đẳng trong quan hệ quốc tế", "Sự sử dụng không có hiệu quả các nguồn vốn từ bên ngoài"], "a": 0, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Mục tiêu công nghiệp hóa, hiện đại hóa ở Việt Nam là:", "o": ["Lao động thủ công vẫn là chủ yếu", "Tập trung phát triển các ngành công nghiệp mũi nhọn", "Mục tiêu: \"dân giàu, nước mạnh, dân chủ, công bằng, văn minh\"", "Gắn với phát triển kinh tế nông nghiệp giản đơn"], "a": 2, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Công nghệ thông tin, tự động hóa sản xuất là sản phẩm, đặc trưng của cuộc cách mạng công nghiệp:", "o": ["Lần thứ nhất", "Lần thứ hai", "Lần thứ ba", "Lần thứ tư (4.0)"], "a": 2, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Cuộc cách mạng công nghiệp lần thứ nhất bắt đầu từ khi nào?", "o": ["Giữa thế kỷ XVII đến giữa thế kỷ XVIII", "Giữa thế kỷ XIX đến giữa thế kỷ XX", "Giữa thế kỷ XVIII đến giữa thế kỷ XIX", "Giữa thế kỷ XX đến nay"], "a": 2, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Hiện nay Việt Nam đang là thành viên của tổ chức kinh tế:", "o": ["WTO (Tổ chức Thương mại thế giới)", "ASEAN (Hiệp hội các Quốc gia Đông Nam Á)", "APEC (Diễn đàn Hợp tác kinh tế Châu Á - Thái Bình Dương)", "Cả A, B và C"], "a": 3, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Quá trình công nghiệp hóa của các nước tư bản cổ điển diễn ra trong thời gian:", "o": ["Trung bình từ 60 - 80 năm", "Thời gian ngắn 18 năm", "Thời gian ngắn 20 - 30 năm", "Thời gian trung bình khoảng 100 năm"], "a": 0, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}, {"q": "Xu thế chung của thế giới khi bước vào thế kỷ XXI là:", "o": ["Hòa bình, hợp tác, ổn định và phát triển", "Hòa nhập nhưng không hòa tan", "Cùng tồn tại phát triển", "Xu thế hòa hoãn trong quan hệ quốc tế"], "a": 0, "cat": "Chương 6: Công nghiệp hóa, hiện đại hóa và hội nhập kinh tế quốc tế của Việt Nam"}]}]}]}</script>
+  <script>
+    const APP_KEY = "quiz_ketqua_v3";
+    const DATA = JSON.parse(document.getElementById('quiz-data').textContent);
+
+    const state = {
+      user: null,
+      partId: DATA.parts[0].id,
+      chapterId: 'all',
+      mode: 'practice',
+      progress: {},
+      partOrders: {},
+      optionOrders: {}
+    };
+
+    const storage = {
+      profile: () => `${APP_KEY}:profile`,
+      progress: (u) => `${APP_KEY}:progress:${u}`,
+      partOrders: (u) => `${APP_KEY}:partOrders:${u}`,
+      optionOrders: (u) => `${APP_KEY}:optionOrders:${u}`,
+      leaderboard: () => `${APP_KEY}:leaderboard`
+    };
+
+    function uid(partId, chapterId, qIndex) {
+      return `${partId}__${chapterId}__${qIndex}`;
+    }
+
+    function esc(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function todayKey() {
+      return new Date().toLocaleDateString('sv-SE');
+    }
+
+    function loadJSON(key, fallback) {
+      try {
+        const raw = localStorage.getItem(key);
+        return raw ? JSON.parse(raw) : fallback;
+      } catch {
+        return fallback;
+      }
+    }
+
+    function saveJSON(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function normalizeName(name) {
+      return String(name || '').trim().replace(/\s+/g, ' ');
+    }
+
+    function displayNameToId(name) {
+      return normalizeName(name).toLowerCase();
+    }
+
+    function fisherYates(arr) {
+      const a = arr.slice();
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function flattenPart(part) {
+      const items = [];
+      part.chapters.forEach((chapter, chapterIndex) => {
+        chapter.questions.forEach((question, qIndex) => {
+          items.push({
+            ...question,
+            uid: uid(part.id, chapter.id, qIndex),
+            partId: part.id,
+            partTitle: part.title,
+            chapterId: String(chapter.id),
+            chapterTitle: chapter.title,
+            chapterIndex,
+            qIndex
+          });
+        });
+      });
+      return items;
+    }
+
+    function getCurrentPart() {
+      return DATA.parts.find(p => p.id === state.partId) || DATA.parts[0];
+    }
+
+    function getAllQuestionsForPart(partId) {
+      const part = DATA.parts.find(p => p.id === partId) || DATA.parts[0];
+      return flattenPart(part);
+    }
+
+    function getFilteredQuestions() {
+      let all = getAllQuestionsForPart(state.partId);
+      if (state.chapterId !== 'all') {
+        all = all.filter(q => q.chapterId === String(state.chapterId));
+      }
+      const order = state.partOrders[state.partId] || [];
+      const orderMap = new Map(order.map((item, index) => [item, index]));
+      all.sort((a, b) => {
+        const ai = orderMap.has(a.uid) ? orderMap.get(a.uid) : Number.MAX_SAFE_INTEGER;
+        const bi = orderMap.has(b.uid) ? orderMap.get(b.uid) : Number.MAX_SAFE_INTEGER;
+        return ai - bi;
+      });
+      return all;
+    }
+
+    function ensureSessionOrders(userId) {
+      const partOrderKey = storage.partOrders(userId);
+      const optionOrderKey = storage.optionOrders(userId);
+      const savedPartOrders = loadJSON(partOrderKey, {});
+      const savedOptionOrders = loadJSON(optionOrderKey, {});
+      const partOrders = {};
+      const optionOrders = savedOptionOrders || {};
+
+      DATA.parts.forEach(part => {
+        const all = flattenPart(part).map(q => q.uid);
+        const saved = Array.isArray(savedPartOrders[part.id]) ? savedPartOrders[part.id] : null;
+        const isValid = saved && saved.length === all.length && saved.every(uid => all.includes(uid));
+        partOrders[part.id] = isValid ? saved : fisherYates(all);
+      });
+
+      saveJSON(partOrderKey, partOrders);
+      saveJSON(optionOrderKey, optionOrders);
+      return { partOrders, optionOrders };
+    }
+
+    function ensureOptionOrder(question) {
+      const key = `${question.uid}`;
+      if (!state.optionOrders[key]) {
+        const order = [0, 1, 2, 3];
+        state.optionOrders[key] = fisherYates(order);
+      }
+      return state.optionOrders[key];
+    }
+
+    function login(userName, password) {
+      const name = normalizeName(userName);
+      if (!name) {
+        alert('Vui lòng nhập họ và tên.');
+        return false;
+      }
+      if (String(password) !== '1') {
+        alert('Sai mật khẩu. Mật khẩu mặc định là 1.');
+        return false;
+      }
+
+      const userId = displayNameToId(name);
+      const profile = loadJSON(storage.profile(), {});
+      profile[userId] = {
+        name,
+        lastLogin: todayKey()
+      };
+      saveJSON(storage.profile(), profile);
+      localStorage.setItem(`${APP_KEY}:lastUserId`, userId);
+
+      state.user = {
+        id: userId,
+        name
+      };
+      state.progress = loadJSON(storage.progress(userId), {});
+      const orders = ensureSessionOrders(userId);
+      state.partOrders = orders.partOrders;
+      state.optionOrders = orders.optionOrders;
+
+      updateStreak(userId);
+      hydrateUI();
+      renderAll();
+      return true;
+    }
+
+    function logout() {
+      state.user = null;
+      document.getElementById('appShell').classList.add('hidden');
+      document.getElementById('loginOverlay').classList.remove('hidden');
+      document.getElementById('loginName').focus();
+    }
+
+    function updateStreak(userId) {
+      const key = `${APP_KEY}:streak:${userId}`;
+      const streak = loadJSON(key, { count: 0, last: null });
+      const today = todayKey();
+      if (streak.last === today) {
+        // no-op
+      } else {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const y = yesterday.toLocaleDateString('sv-SE');
+        streak.count = (streak.last === y) ? (streak.count + 1) : 1;
+        streak.last = today;
+      }
+      saveJSON(key, streak);
+      document.getElementById('streakValue').textContent = streak.count;
+    }
+
+    function upsertLeaderboard(userId) {
+      const key = storage.leaderboard();
+      const board = loadJSON(key, {});
+      const userName = state.user?.name || userId;
+      const answered = Object.keys(state.progress).length;
+      const correct = Object.values(state.progress).filter(v => v && v.correct).length;
+      board[userId] = {
+        name: userName,
+        answered,
+        correct,
+        accuracy: answered ? Math.round((correct / answered) * 100) : 0,
+        updated: Date.now()
+      };
+      saveJSON(key, board);
+    }
+
+    function sortedLeaderboard() {
+      const board = loadJSON(storage.leaderboard(), {});
+      return Object.values(board)
+        .sort((a, b) => (b.answered - a.answered) || (b.correct - a.correct) || (b.updated - a.updated))
+        .slice(0, 5);
+    }
+
+    function setMode(mode) {
+      state.mode = mode;
+      renderAll();
+    }
+
+    function setPart(partId) {
+      state.partId = partId;
+      state.chapterId = 'all';
+      renderAll();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setChapter(chapterId) {
+      state.chapterId = chapterId;
+      renderAll();
+    }
+
+    function getPartStats(partId) {
+      const questions = getAllQuestionsForPart(partId);
+      const ids = new Set(questions.map(q => q.uid));
+      const answers = Object.entries(state.progress).filter(([k]) => ids.has(k));
+      const done = answers.length;
+      const correct = answers.filter(([, v]) => v && v.correct).length;
+      return {
+        done,
+        correct,
+        left: questions.length - done,
+        total: questions.length,
+        rate: done ? Math.round((correct / done) * 100) : 0
+      };
+    }
+
+    function getOverallStats() {
+      const done = Object.keys(state.progress).length;
+      const correct = Object.values(state.progress).filter(v => v && v.correct).length;
+      return {
+        done,
+        correct,
+        rate: done ? Math.round((correct / done) * 100) : 0
+      };
+    }
+
+    function saveProgress() {
+      saveJSON(storage.progress(state.user.id), state.progress);
+      upsertLeaderboard(state.user.id);
+    }
+
+    function onAnswer(question, chosenOriginalIndex) {
+      const correctOriginal = Number(question.a);
+      const isCorrect = chosenOriginalIndex === correctOriginal;
+      state.progress[question.uid] = {
+        selected: chosenOriginalIndex,
+        correct: isCorrect,
+        answeredAt: Date.now()
+      };
+      saveProgress();
+      renderStats();
+      renderLeaderboard();
+      renderQuestions();
+    }
+
+    function clearSessionOrders() {
+      const userId = state.user.id;
+      state.partOrders = {};
+      state.optionOrders = {};
+      saveJSON(storage.partOrders(userId), {});
+      saveJSON(storage.optionOrders(userId), {});
+      state.progress = {};
+      saveJSON(storage.progress(userId), {});
+      ensureSessionOrders(userId);
+      renderAll();
+    }
+
+    function renderTabs() {
+      const el = document.getElementById('partTabs');
+      el.innerHTML = '';
+      DATA.parts.forEach(part => {
+        const btn = document.createElement('button');
+        btn.className = `btn ${part.id === state.partId ? 'active' : ''}`;
+        btn.textContent = part.title;
+        btn.onclick = () => setPart(part.id);
+        el.appendChild(btn);
+      });
+    }
+
+    function renderChapters() {
+      const el = document.getElementById('chapterList');
+      const part = getCurrentPart();
+      const total = flattenPart(part).length;
+      document.getElementById('partTitle').textContent = part.title;
+      document.getElementById('questionCount').textContent = `${total} câu`;
+      document.getElementById('legendText').textContent = state.mode === 'practice'
+        ? 'Chế độ luyện tập: chọn đáp án để xem đúng/sai và giải thích.'
+        : 'Chế độ xem đáp án: đáp án đúng được tô xanh ngay cả khi chưa chọn.';
+      el.innerHTML = '';
+
+      const allBtn = document.createElement('button');
+      allBtn.className = `btn ${state.chapterId === 'all' ? 'active' : ''}`;
+      allBtn.textContent = 'Tất cả chương';
+      allBtn.onclick = () => setChapter('all');
+      el.appendChild(allBtn);
+
+      part.chapters.forEach(chapter => {
+        const count = chapter.questions.length;
+        const btn = document.createElement('button');
+        btn.className = `btn ${String(chapter.id) === String(state.chapterId) ? 'active' : ''}`;
+        btn.textContent = `${chapter.title} · ${count} câu`;
+        btn.onclick = () => setChapter(String(chapter.id));
+        el.appendChild(btn);
+      });
+    }
+
+    function renderStats() {
+      const partStats = getPartStats(state.partId);
+      const overall = getOverallStats();
+
+      document.getElementById('statDone').textContent = overall.done;
+      document.getElementById('statCorrect').textContent = overall.correct;
+      document.getElementById('statRate').textContent = `${overall.rate}%`;
+      document.getElementById('statRank').textContent = `#${getRank(state.user.id)}`;
+
+      document.getElementById('partDone').textContent = partStats.done;
+      document.getElementById('partCorrect').textContent = partStats.correct;
+      document.getElementById('partLeft').textContent = partStats.left;
+      document.getElementById('progressSummary').textContent = `${partStats.done} / ${partStats.total}`;
+      document.getElementById('currentMode').textContent = state.mode === 'practice' ? 'Luyện tập' : 'Đáp án';
+    }
+
+    function getRank(userId) {
+      const board = loadJSON(storage.leaderboard(), {});
+      const sorted = Object.entries(board)
+        .sort((a, b) => (b[1].answered - a[1].answered) || (b[1].correct - a[1].correct) || (b[1].updated - a[1].updated));
+      const idx = sorted.findIndex(([id]) => id === userId);
+      return idx >= 0 ? idx + 1 : 1;
+    }
+
+    function renderLeaderboard() {
+      const el = document.getElementById('leaderboard');
+      const items = sortedLeaderboard();
+      if (!items.length) {
+        el.innerHTML = '<div class="tiny">Chưa có dữ liệu xếp hạng.</div>';
+        return;
+      }
+      el.innerHTML = items.map((item, index) => `
+        <div class="leader-item">
+          <div>
+            <div class="leader-name">${index + 1}. ${esc(item.name)}</div>
+            <div class="leader-meta">Đã làm ${item.answered} · Đúng ${item.correct} · ${item.accuracy}%</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function renderQuestions() {
+      const el = document.getElementById('questionArea');
+      const questions = getFilteredQuestions();
+      if (!questions.length) {
+        el.innerHTML = '<div class="panel empty">Không có câu hỏi nào trong mục này.</div>';
+        return;
+      }
+
+      const mode = state.mode;
+      el.innerHTML = '';
+      questions.forEach((question, index) => {
+        const selected = state.progress[question.uid]?.selected;
+        const selectedExists = typeof selected === 'number';
+        const optionsOrder = ensureOptionOrder(question);
+        const correctOriginal = Number(question.a);
+        const correctShuffledIndex = optionsOrder.indexOf(correctOriginal);
+
+        const card = document.createElement('article');
+        card.className = 'panel question-card';
+
+        const optionsHtml = optionsOrder.map((originalIndex, optIndex) => {
+          const text = question.o[originalIndex];
+          const isChosen = selectedExists && selected === originalIndex;
+          const isCorrect = mode === 'answers' ? originalIndex === correctOriginal : (selectedExists && originalIndex === correctOriginal);
+          const isWrong = mode === 'practice' && selectedExists && originalIndex === selected && selected !== correctOriginal;
+          const cls = [
+            'option',
+            isChosen ? 'chosen' : '',
+            isCorrect ? 'correct' : '',
+            isWrong ? 'wrong' : ''
+          ].filter(Boolean).join(' ');
+          return `
+            <button class="${cls}" data-original-index="${originalIndex}" >
+              <b>${String.fromCharCode(65 + optIndex)}.</b> ${esc(text)}
+            </button>
+          `;
+        }).join('');
+
+        const formula = question.formula ? `<div class="formula">${esc(question.formula)}</div>` : '';
+        const explain = question.ex ? question.ex : '';
+        const selectedLabel = selectedExists ? String.fromCharCode(65 + selected) : 'Chưa chọn';
+
+        card.innerHTML = `
+          <div class="q-top">
+            <div class="q-meta">
+              <span class="pill">Câu ${index + 1}</span>
+              <span class="pill">${esc(question.chapterTitle)}</span>
+              <span class="pill">Đã chọn: ${selectedLabel}</span>
+            </div>
+            <h3 class="q-title">${esc(question.q)}</h3>
+            ${formula}
+          </div>
+          <div class="options">${optionsHtml}</div>
+          <div class="answer-line">
+            <button class="btn ghost small-btn toggle-exp" type="button">${selectedExists || mode === 'answers' ? 'Hiện / Ẩn giải thích' : 'Xem giải thích'}</button>
+            <span class="tiny">${selectedExists ? 'Bạn đã lưu câu này.' : 'Chọn một đáp án để lưu tiến độ.'}</span>
+          </div>
+          <div class="explain ${(selectedExists || mode === 'answers') && explain ? 'show' : ''}">${explain ? esc(explain) : 'Không có giải thích cho câu này.'}</div>
+        `;
+
+        card.querySelectorAll('.option').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const originalIndex = Number(btn.dataset.originalIndex);
+            onAnswer(question, originalIndex);
+          });
+        });
+
+        card.querySelector('.toggle-exp').addEventListener('click', () => {
+          const box = card.querySelector('.explain');
+          box.classList.toggle('show');
+        });
+
+        el.appendChild(card);
+      });
+    }
+
+    function renderAll() {
+      if (!state.user) return;
+      document.getElementById('displayName').textContent = state.user.name;
+      document.getElementById('appShell').classList.remove('hidden');
+      document.getElementById('loginOverlay').classList.add('hidden');
+      document.getElementById('modePractice').classList.toggle('active', state.mode === 'practice');
+      document.getElementById('modeAnswers').classList.toggle('active', state.mode === 'answers');
+      renderTabs();
+      renderChapters();
+      renderStats();
+      renderLeaderboard();
+      renderQuestions();
+    }
+
+    function hydrateUI() {
+      document.getElementById('modePractice').onclick = () => setMode('practice');
+      document.getElementById('modeAnswers').onclick = () => setMode('answers');
+      document.getElementById('resetSession').onclick = () => {
+        if (confirm('Trộn lại phiên này và xoá tiến độ của tài khoản hiện tại?')) {
+          clearSessionOrders();
+        }
+      };
+      document.getElementById('logoutBtn').onclick = logout;
+      document.getElementById('jumpTop').onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('loginBtn').onclick = () => login(
+        document.getElementById('loginName').value,
+        document.getElementById('loginPass').value
+      );
+      document.getElementById('loginPass').addEventListener('keydown', e => {
+        if (e.key === 'Enter') document.getElementById('loginBtn').click();
+      });
+      document.getElementById('loginName').addEventListener('keydown', e => {
+        if (e.key === 'Enter') document.getElementById('loginBtn').click();
+      });
+    }
+
+    function boot() {
+      hydrateUI();
+      const profile = loadJSON(storage.profile(), null);
+      const lastUserId = localStorage.getItem(`${APP_KEY}:lastUserId`);
+      const userId = lastUserId && profile && profile[lastUserId] ? lastUserId : (profile ? Object.keys(profile)[0] : null);
+      if (userId && profile[userId]) {
+        state.user = { id: userId, name: profile[userId].name };
+        state.progress = loadJSON(storage.progress(userId), {});
+        const orders = ensureSessionOrders(userId);
+        state.partOrders = orders.partOrders;
+        state.optionOrders = orders.optionOrders;
+        updateStreak(userId);
+        renderAll();
+      } else {
+        document.getElementById('loginOverlay').classList.remove('hidden');
+        document.getElementById('appShell').classList.add('hidden');
+        document.getElementById('loginName').focus();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', boot);
+  </script>
+</body>
+</html>
