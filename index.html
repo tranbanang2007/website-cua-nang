@@ -668,43 +668,6 @@
       return state.optionOrders[key];
     }
 
-  function login(userName, password) {
-  const name = normalizeName(userName);
-  if (!name) {
-    alert('Vui lòng nhập họ và tên.');
-    return false;
-  }
-  if (String(password) !== '1') {
-    alert('Sai mật khẩu. Mật khẩu mặc định là 1.');
-    return false;
-  }
-
-  const userId = displayNameToId(name);
-
-  let profile = loadJSON(storage.profile(), {});
-  
-  if (!profile[userId]) {
-    profile[userId] = {
-      name: name,
-      created: todayKey()
-    };
-    saveJSON(storage.profile(), profile);
-  }
-
-  localStorage.setItem(`${APP_KEY}:lastUserId`, userId);
-
-  state.user = { id: userId, name: profile[userId].name };
-  state.progress = loadJSON(storage.progress(userId), {});
-  
-  const orders = ensureSessionOrders(userId);
-  state.partOrders = orders.partOrders;
-  state.optionOrders = orders.optionOrders;
-
-  updateStreak(userId);
-  hydrateUI();
-  renderAll();
-  return true;
-}
 
       const userId = displayNameToId(name);
       const profile = loadJSON(storage.profile(), {});
