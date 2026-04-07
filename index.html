@@ -668,7 +668,7 @@
       return state.optionOrders[key];
     }
 
-   function login(userName, password) {
+  function login(userName, password) {
   const name = normalizeName(userName);
   if (!name) {
     alert('Vui lòng nhập họ và tên.');
@@ -681,10 +681,8 @@
 
   const userId = displayNameToId(name);
 
-  // === Phần quan trọng mới ===
   let profile = loadJSON(storage.profile(), {});
   
-  // Nếu chưa có tài khoản này thì tạo mới
   if (!profile[userId]) {
     profile[userId] = {
       name: name,
@@ -702,7 +700,7 @@
   state.partOrders = orders.partOrders;
   state.optionOrders = orders.optionOrders;
 
-  updateStreak(userId);        // Cập nhật streak khi đăng nhập
+  updateStreak(userId);
   hydrateUI();
   renderAll();
   return true;
