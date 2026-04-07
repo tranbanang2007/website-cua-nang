@@ -668,16 +668,45 @@
       return state.optionOrders[key];
     }
 
-    function login(userName, password) {
-      const name = normalizeName(userName);
-      if (!name) {
-        alert('Vui lòng nhập họ và tên.');
-        return false;
-      }
-      if (String(password) !== '1') {
-        alert('Sai mật khẩu. Mật khẩu mặc định là 1.');
-        return false;
-      }
+   function login(userName, password) {
+  const name = normalizeName(userName);
+  if (!name) {
+    alert('Vui lòng nhập họ và tên.');
+    return false;
+  }
+  if (String(password) !== '1') {
+    alert('Sai mật khẩu. Mật khẩu mặc định là 1.');
+    return false;
+  }
+
+  const userId = displayNameToId(name);
+
+  // === Phần quan trọng mới ===
+  let profile = loadJSON(storage.profile(), {});
+  
+  // Nếu chưa có tài khoản này thì tạo mới
+  if (!profile[userId]) {
+    profile[userId] = {
+      name: name,
+      created: todayKey()
+    };
+    saveJSON(storage.profile(), profile);
+  }
+
+  localStorage.setItem(`${APP_KEY}:lastUserId`, userId);
+
+  state.user = { id: userId, name: profile[userId].name };
+  state.progress = loadJSON(storage.progress(userId), {});
+  
+  const orders = ensureSessionOrders(userId);
+  state.partOrders = orders.partOrders;
+  state.optionOrders = orders.optionOrders;
+
+  updateStreak(userId);        // Cập nhật streak khi đăng nhập
+  hydrateUI();
+  renderAll();
+  return true;
+}
 
       const userId = displayNameToId(name);
       const profile = loadJSON(storage.profile(), {});
@@ -711,18 +740,29 @@
     }
 
     function updateStreak(userId) {
-      const key = `${APP_KEY}:streak:${userId}`;
-      const streak = loadJSON(key, { count: 0, last: null });
-      const today = todayKey();
-      if (streak.last === today) {
-        // no-op
-      } else {
-        const yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        const y = yesterday.toLocaleDateString('sv-SE');
-        streak.count = (streak.last === y) ? (streak.count + 1) : 1;
-        streak.last = today;
-      }
+  const key = `${APP_KEY}:streak:${userId}`;
+  let streakData = loadJSON(key, { count: 0, lastDate: null });
+
+  const today = todayKey();   // yyyy-mm-dd
+
+  if (streakData.lastDate === today) {
+    // Hôm nay đã tính rồi, không làm gì
+  } else {
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    const yesterStr = yesterday.toLocaleDateString('sv-SE');
+
+    if (streakData.lastDate === yesterStr) {
+      streakData.count += 1;        // Duy trì streak
+    } else {
+      streakData.count = 1;         // Mất streak → bắt đầu lại từ 1
+    }
+    streakData.lastDate = today;
+  }
+
+  saveJSON(key, streakData);
+  document.getElementById('streakValue').textContent = streakData.count;
+}
       saveJSON(key, streak);
       document.getElementById('streakValue').textContent = streak.count;
     }
@@ -806,6 +846,7 @@
         answeredAt: Date.now()
       };
       saveProgress();
+      updateStreak(state.user.id);
       renderStats();
       renderLeaderboard();
       renderQuestions();
